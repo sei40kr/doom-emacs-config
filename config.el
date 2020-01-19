@@ -173,15 +173,10 @@
     (kbd "gr") 'treemacs-refresh
     (kbd "h")  '+custom/treemacs/collapse-or-up
     (kbd "l")  '+custom/treemacs/expand-or-down)
-  (map!
-   :g "H" 'treemacs-previous-neighbour
-   :map evil-treemacs-state-map)
-  (map!
-   :g
-   "J" '+custom/treemacs/select-down
-   "R" 'treemacs-root-down
-   "r" 'treemacs-rename
-   :map treemacs-mode-map))
+  (define-key evil-treemacs-state-map (kbd "H") 'treemacs-previous-neighbour)
+  (define-key treemacs-mode-map (kbd "J") '+custom/treemacs/select-down)
+  (define-key treemacs-mode-map (kbd "R") 'treemacs-root-down)
+  (define-key treemacs-mode-map (kbd "r") 'treemacs-rename))
 
 
 ;; Editor
