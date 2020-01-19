@@ -1,0 +1,17 @@
+version: 1
+
+task_definition:
+  services:
+
+  docker_volumes:
+
+  placement_constraints:
+
+
+run_params:
+  network_configuration:
+
+  task_placement:
+
+  service_discovery:
+$0
