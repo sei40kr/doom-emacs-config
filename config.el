@@ -49,6 +49,16 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+(use-package! atcoder-tools
+  :defer t
+  :load-path "~/.doom.d/packages/atcoder-tools")
+(use-package! competitive-programming-snippets
+  :config
+  (competitive-programming-snippets-initialize)
+  :after yasnippet
+  :load-path "~/.doom.d/packages/competitive-programming-snippets")
+
+
 (defun +custom--noop (&rest _))
 
 (setq +popup-default-alist                '((window-height . 30)
