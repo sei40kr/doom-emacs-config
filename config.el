@@ -254,6 +254,27 @@
  '("/\\.travis\\.ya?ml$"    :trigger "__travis.yml"         :mode yaml-mode))
 
 
+;; Doom Themes
+
+(after! doom-themes
+  (setq doom-modeline-buffer-file-name-style #'truncate-upto-root)
+
+  (defun +custom--pick-doom-color (key)
+    (nth (if (display-graphic-p) 0 1) (alist-get key doom-themes--colors))))
+
+;; Doom Themes + LSP
+(after! (lsp-ui doom-themes)
+  (setq lsp-ui-imenu-colors '((+custom--pick-doom-color 'cyan)
+                              (+custom--pick-doom-color 'green))))
+
+;; Doom Themes + Treemacs
+(after! (treemacs doom-themes)
+  (setq doom-themes-treemacs-enable-variable-pitch nil)
+
+  (custom-set-faces
+   '(treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0))))))
+
+
 ;; Perspective
 
 (after! persp-mode
