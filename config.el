@@ -73,7 +73,8 @@
 
 (after! centaur-tabs
   ;; Show only workspace-local buffers
-  (setq centaur-tabs-buffer-list-function '+workspace-buffer-list)
+  (setq centaur-tabs-buffer-list-function '+workspace-buffer-list
+        centaur-tabs-buffer-groups-function 'centaur-tabs-projectile-buffer-groups)
 
   (map! :map centaur-tabs-mode-map
         :g
