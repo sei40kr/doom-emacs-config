@@ -304,32 +304,30 @@
 
 ;; Projectile
 
-(defun +custom--register-magit-repos-as-projectile-known-projects ()
-  (require 'magit-repos)
-  (setq projectile-known-projects (mapcar 'abbreviate-file-name (magit-list-repos))))
-
 (after! projectile
-  (setq projectile-git-submodule-command nil)
+  (setq projectile-git-submodule-command nil))
+(after! counsel-projectile
+  (setq projectile-current-project-on-switch 'remove
+        counsel-projectile-remove-current-project t))
 
-  (advice-add 'projectile-load-known-projects
-              :override '+custom--register-magit-repos-as-projectile-known-projects)
-  (advice-add 'projectile-remove-known-project
-              :override '(lambda (&optional project)))
-  (advice-add 'projectile-add-known-projects
-              :override '(lambda (project-root)))
-  (dolist (func '(projectile-cleanup-known-projects
-                  projectile-clear-known-projects
-                  projectile-save-known-projects
-                  projectile-merge-known-projects))
-    (advice-add func
-                :override '(lambda ()))))
-;; (after! counsel-projectile
-;;   (setq projectile-current-project-on-switch 'remove
-;;         counsel-projectile-remove-current-project t)
-
-;;   (advice-add 'counsel-projectile-switch-project
-;;               :before '(lambda (&optional _)
-;;                          (+custom--register-magit-repos-as-projectile-known-projects))))
+(defun +custom--projectile-register-magit-repos ()
+  (require 'magit)
+  (setq projectile-known-projects (mapcar 'abbreviate-file-name
+                                          (magit-list-repos))))
+(advice-add 'projectile-load-known-projects
+            :override '+custom--projectile-register-magit-repos)
+(advice-add 'projectile-remove-known-project
+            :override '(lambda (&optional _)))
+(advice-add 'projectile-add-known-projects
+            :override '(lambda (_)))
+(dolist (func '(projectile-cleanup-known-projects
+                projectile-clear-known-projects
+                projectile-save-known-projects
+                projectile-merge-known-projects))
+  (advice-add func :override '+custom--noop))
+(advice-add 'counsel-projectile-switch-project
+            :before '(lambda (&optional _)
+                       (+custom--projectile-register-magit-repos)))
 
 
 ;; Markdown
