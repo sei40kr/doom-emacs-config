@@ -197,6 +197,9 @@
   (map! :map company-active-map
         :i "C-h" nil
         :e "C-h" nil))
+(after! helm
+  (map! :map helm-map
+        :g "C-h" 'doom/silent-backward-delete-char))
 (after! org-mode
   (map! :map org-mode-map
         :i "C-h" 'org-delete-backward-char
