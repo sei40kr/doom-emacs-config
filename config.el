@@ -66,6 +66,13 @@
       +workspaces-switch-project-function '(lambda (_))
       +evil-want-o/O-to-continue-comments nil
       +file-templates-dir                 (expand-file-name "templates/" doom-private-dir)
+      +format-on-save-enabled-modes       '((c-mode
+                                             c++-mode
+                                             go-mode
+                                             haskell-mode
+                                             java-mode
+                                             rustic-mode
+                                             sh-mode))
       +format-preserve-indentation        nil)
 
 
