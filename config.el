@@ -72,7 +72,8 @@
 ;; Completion
 
 (after! company
-  (setq company-idle-delay 0.2))
+  (setq company-idle-delay 0.2
+        company-require-match t))
 
 
 ;; Tabs
