@@ -352,6 +352,20 @@
           grip-github-password (cadr credential))))
 
 
+;; C/C++
+
+(set-formatter! 'clang-format
+  '("clang-format"
+    ("-assume-filename=%S" (or buffer-file-name mode-result ""))
+    ("-style=Google"))
+  :modes
+  '((c-mode ".c")
+    (c++-mode ".cpp")
+    (java-mode ".java")
+    (objc-mode ".m")
+    (protobuf-mode ".proto")))
+
+
 ;; Python
 
 (set-repl-handler! 'python-mode '+python/open-jupyter-repl)
