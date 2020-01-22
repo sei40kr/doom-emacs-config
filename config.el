@@ -216,6 +216,11 @@
         :i "C-h" 'vterm--self-insert
         :e "C-h" 'vterm--self-insert))
 
+;; Retain visual-mode on selection shift
+(after! evil
+  (evil-set-command-property 'evil-shift-left  :keep-visual t)
+  (evil-set-command-property 'evil-shift-right :keep-visual t))
+
 ;; Esc to escape from key sequence
 (after! transient
   (map! :map (transient-map transient-edit-map)
