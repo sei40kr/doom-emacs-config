@@ -69,6 +69,12 @@
       +format-preserve-indentation        nil)
 
 
+;; Completion
+
+(after! company
+  (setq company-idle-delay 0.2))
+
+
 ;; Tabs
 
 (after! centaur-tabs
