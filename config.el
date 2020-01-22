@@ -297,6 +297,12 @@
    '(treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0))))))
 
 
+;; Helm
+
+(after! helm
+  (setq helm-mini-default-sources '(helm-source-buffers-list)))
+
+
 ;; Perspective
 
 (after! persp-mode
