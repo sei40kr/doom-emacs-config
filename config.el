@@ -356,9 +356,9 @@
 
 
 ;; Markdown
+(after! markdown-mode
+  (setq markdown-header-scaling t))
 (after! grip-mode
-  (setq markdown-header-scaling t)
-
   (require 'auth-source)
   (let* ((credential (auth-source-user-and-password "api.github.com")))
     (setq grip-github-user (car credential)
