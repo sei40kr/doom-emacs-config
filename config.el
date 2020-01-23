@@ -384,6 +384,19 @@
 (set-repl-handler! 'python-mode '+python/open-jupyter-repl)
 
 
+;; Rust
+
+(after! rustic
+  (add-hook 'rustic-mode-hook '(lambda ()
+                                 (setq-local lsp-prefer-flymake :none)
+                                 (require 'flycheck)
+                                 (flycheck-select-checker 'rust))))
+(after! (rustic flycheck)
+  (flycheck-add-mode 'rust 'rustic-mode))
+(after! (rustic lsp-mode)
+  (setq lsp-rust-clippy-preference "off"))
+
+
 ;; Web
 
 (after! emmet-mode
