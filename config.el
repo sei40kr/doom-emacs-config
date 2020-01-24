@@ -357,16 +357,6 @@
                        (+custom--projectile-register-magit-repos)))
 
 
-;; Markdown
-(after! markdown-mode
-  (setq markdown-header-scaling t))
-(after! grip-mode
-  (require 'auth-source)
-  (let* ((credential (auth-source-user-and-password "api.github.com")))
-    (setq grip-github-user (car credential)
-          grip-github-password (cadr credential))))
-
-
 ;; C/C++
 
 (set-formatter! 'clang-format
@@ -392,6 +382,16 @@
       lsp-java-code-generation-use-blocks t
       lsp-java-code-generation-generate-comments t
       lsp-java-code-generation-to-string-code-style "STRING_BUILDER")
+
+
+;; Markdown
+(after! markdown-mode
+  (setq markdown-header-scaling t))
+(after! grip-mode
+  (require 'auth-source)
+  (let* ((credential (auth-source-user-and-password "api.github.com")))
+    (setq grip-github-user (car credential)
+          grip-github-password (cadr credential))))
 
 
 ;; Python
