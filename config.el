@@ -333,9 +333,6 @@
 
 (after! projectile
   (setq projectile-git-submodule-command nil))
-(after! counsel-projectile
-  (setq projectile-current-project-on-switch 'remove
-        counsel-projectile-remove-current-project t))
 
 (defun +custom--projectile-register-magit-repos ()
   (require 'magit)
@@ -352,7 +349,7 @@
                 projectile-save-known-projects
                 projectile-merge-known-projects))
   (advice-add func :override '+custom--noop))
-(advice-add 'counsel-projectile-switch-project
+(advice-add 'helm-projectile-switch-project
             :before '(lambda (&optional _)
                        (+custom--projectile-register-magit-repos)))
 
