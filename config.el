@@ -75,6 +75,8 @@
                                              sh-mode))
       +format-preserve-indentation        nil)
 
+(global-auto-revert-mode)
+
 
 ;; Completion
 
