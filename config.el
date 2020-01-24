@@ -64,6 +64,7 @@
 (setq +popup-default-alist                '((window-height . 30)
                                             (reusable-frames . 'visible))
       +workspaces-switch-project-function '(lambda (_))
+      +workspaces-on-switch-project-behavior t
       +evil-want-o/O-to-continue-comments nil
       +file-templates-dir                 (expand-file-name "templates/" doom-private-dir)
       +format-on-save-enabled-modes       '((c-mode
