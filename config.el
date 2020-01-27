@@ -67,13 +67,13 @@
       +workspaces-on-switch-project-behavior t
       +evil-want-o/O-to-continue-comments nil
       +file-templates-dir                 (expand-file-name "templates/" doom-private-dir)
-      +format-on-save-enabled-modes       '((c-mode
-                                             c++-mode
-                                             go-mode
-                                             haskell-mode
-                                             java-mode
-                                             rustic-mode
-                                             sh-mode))
+      +format-on-save-enabled-modes       '(c-mode
+                                            c++-mode
+                                            go-mode
+                                            haskell-mode
+                                            java-mode
+                                            rustic-mode
+                                            sh-mode)
       +format-preserve-indentation        nil
       +lsp-company-backend                '(company-lsp :with company-yasnippet))
 
