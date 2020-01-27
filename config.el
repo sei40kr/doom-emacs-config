@@ -74,7 +74,8 @@
                                              java-mode
                                              rustic-mode
                                              sh-mode))
-      +format-preserve-indentation        nil)
+      +format-preserve-indentation        nil
+      +lsp-company-backend                '(company-lsp :with company-yasnippet))
 
 (global-auto-revert-mode)
 
