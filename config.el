@@ -219,6 +219,8 @@
         :i "C-h" 'org-delete-backward-char
         :e "C-h" 'org-delete-backward-char))
 (after! vterm
+  (add-to-list 'vterm-eval-cmds '("evil-normal-state" evil-normal-state))
+
   (map! :map vterm-mode-map
         :i "C-h" 'vterm--self-insert
         :e "C-h" 'vterm--self-insert))
