@@ -70,10 +70,7 @@
       +format-on-save-enabled-modes '(c-mode
                                       c++-mode
                                       go-mode
-                                      haskell-mode
-                                      java-mode
-                                      rustic-mode
-                                      sh-mode)
+                                      rustic-mode)
       +format-preserve-indentation nil
       +lsp-company-backend '(company-lsp :with company-yasnippet))
 
