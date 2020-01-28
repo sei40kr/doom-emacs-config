@@ -313,6 +313,24 @@
         persp-remove-buffers-from-nil-persp-behaviour nil))
 
 
+;; LSP
+
+(after! lsp-ui
+  (add-to-list 'flycheck-checkers 'lsp-ui)
+
+  (defun +custom--lsp-ui-flycheck-enable (_)
+    "Enable flycheck integration for the current buffer."
+    (setq-local lsp-ui-flycheck--save-mode
+                (or (memq 'save flycheck-check-syntax-automatically)
+                    lsp-ui-flycheck--save-mode))
+    (setq-local flycheck-check-syntax-automatically nil)
+    (lsp-ui-flycheck-add-mode major-mode)
+
+    (add-hook 'lsp-after-diagnostics-hook 'lsp-ui-flycheck--report nil t))
+  (advice-add 'lsp-ui-flycheck-enable
+              :override '+custom--lsp-ui-flycheck-enable))
+
+
 ;; Version Control
 
 (setq vc-follow-symlinks t)
@@ -382,6 +400,13 @@
       lsp-java-code-generation-to-string-code-style "STRING_BUILDER")
 
 
+;; JavaScript
+
+(after! ((:or js-mode rjsx-mode) flycheck)
+  (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
+  (add-to-list 'flycheck-disabled-checkers 'javascript-standard))
+
+
 ;; Markdown
 (after! markdown-mode
   (setq markdown-header-scaling t))
@@ -399,14 +424,9 @@
 
 ;; Rust
 
-(after! rustic
-  (add-hook 'rustic-mode-hook '(lambda ()
-                                 (setq-local lsp-prefer-flymake :none)
-                                 (require 'flycheck)
-                                 (flycheck-select-checker 'rust))))
 (after! (rustic flycheck)
-  (flycheck-add-mode 'rust 'rustic-mode))
-(after! (rustic lsp-mode)
+  (flycheck-add-next-checker 'rust 'rust-cargo))
+(after! lsp-rust
   (setq lsp-rust-clippy-preference "off"))
 
 
