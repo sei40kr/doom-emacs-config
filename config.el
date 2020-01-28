@@ -213,8 +213,7 @@
 (map! :g "C-h" 'delete-backward-char)
 (after! company
   (map! :map company-active-map
-        :i "C-h" nil
-        :e "C-h" nil))
+        :g "C-h" nil))
 (after! helm
   (map! :map helm-map
         :g "C-h" 'doom/silent-backward-delete-char))
