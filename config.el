@@ -74,7 +74,7 @@
       +format-preserve-indentation nil
       +lsp-company-backend '(company-lsp :with company-yasnippet))
 
-(global-auto-revert-mode)
+(global-auto-revert-mode +1)
 
 
 ;; Completion
