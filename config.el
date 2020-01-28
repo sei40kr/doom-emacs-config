@@ -424,9 +424,11 @@
 ;; Rust
 
 (after! (rustic flycheck)
-  (flycheck-add-next-checker 'rust 'rust-cargo))
-(after! lsp-rust
-  (setq lsp-rust-clippy-preference "off"))
+  (flycheck-add-mode 'rust-cargo 'rustic-mode)
+  (flycheck-add-mode 'rust 'rustic-mode)
+  (flycheck-add-mode 'rustic-clippy 'rustic-mode)
+  (flycheck-add-next-checker 'rust 'rust-cargo)
+  (flycheck-add-next-checker 'rust-cargo 'rustic-clippy))
 
 
 ;; Web
