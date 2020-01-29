@@ -426,7 +426,10 @@
 
 ;; Python
 
-(set-repl-handler! 'python-mode '+python/open-jupyter-repl)
+(after! python
+  (set-repl-handler! 'python-mode '+python/open-jupyter-repl))
+(after! (python lsp-ui flycheck)
+  (set-next-checker! 'python-mode 'lsp-ui '(t . python-flake8)))
 
 
 ;; Ruby
