@@ -403,9 +403,12 @@
 
 ;; JavaScript
 
-(after! ((:or js-mode rjsx-mode) flycheck)
+(after! ((:or js2-mode rjsx-mode) flycheck)
   (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
   (add-to-list 'flycheck-disabled-checkers 'javascript-standard))
+(after! ((:or js2-mode rjsx-mode) lsp-ui flycheck)
+  (set-next-checker! 'js2-mode 'lsp-ui '(t . javascript-eslint))
+  (set-next-checker! 'rjsx-mode 'lsp-ui '(t . javascript-eslint)))
 
 
 ;; Markdown
