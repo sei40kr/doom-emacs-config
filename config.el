@@ -315,6 +315,8 @@
 ;; LSP
 
 (after! lsp-ui
+  (setq lsp-ui-flycheck-live-reporting nil)
+
   (add-to-list 'flycheck-checkers 'lsp-ui)
 
   (defun +custom--lsp-ui-flycheck-enable (_)
