@@ -373,16 +373,15 @@
 
 ;; C/C++
 
-(set-formatter! 'clang-format
-  '("clang-format"
-    ("-assume-filename=%S" (or buffer-file-name mode-result ""))
-    ("-style=Google"))
-  :modes
-  '((c-mode ".c")
-    (c++-mode ".cpp")
-    (java-mode ".java")
-    (objc-mode ".m")
-    (protobuf-mode ".proto")))
+(after! cc-mode
+  (set-formatter! 'clang-format
+    '("clang-format"
+      ("-assume-filename=%S" (or buffer-file-name mode-result ""))
+      ("-style=Google"))
+    :modes
+    '((c-mode ".c")
+      (c++-mode ".cpp")
+      (java-mode ".java"))))
 
 
 ;; Go
