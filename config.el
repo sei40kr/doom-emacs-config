@@ -385,6 +385,12 @@
     (protobuf-mode ".proto")))
 
 
+;; Go
+
+(after! (go-mode lsp-ui flycheck)
+  (set-next-checker! 'go-mode 'lsp-ui '(t . go-gofmt)))
+
+
 ;; Java
 
 (setq lsp-java-maven-download-sources t
