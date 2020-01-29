@@ -442,11 +442,9 @@
 ;; Rust
 
 (after! (rustic flycheck)
-  (flycheck-add-mode 'rust-cargo 'rustic-mode)
   (flycheck-add-mode 'rust 'rustic-mode)
-  (flycheck-add-mode 'rustic-clippy 'rustic-mode)
-  (flycheck-add-next-checker 'rust 'rust-cargo)
-  (flycheck-add-next-checker 'rust-cargo 'rustic-clippy))
+  (flycheck-add-mode 'rust-cargo 'rustic-mode)
+  (set-next-checker! 'rustic-mode 'rust-cargo 'rustic-clippy))
 
 
 ;; TypeScript
