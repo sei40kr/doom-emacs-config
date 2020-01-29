@@ -450,6 +450,12 @@
   (flycheck-add-next-checker 'rust-cargo 'rustic-clippy))
 
 
+;; TypeScript
+
+(after! (typescript-mode lsp-ui flycheck)
+  (set-next-checker! 'typescript-mode 'lsp-ui '(t . javascript-eslint)))
+
+
 ;; Web
 
 (after! emmet-mode
