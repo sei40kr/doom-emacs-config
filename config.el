@@ -447,6 +447,14 @@
   (set-next-checker! 'rustic-mode 'rust-cargo 'rustic-clippy))
 
 
+;; Solidity
+
+(setq solidity-flycheck-solc-checker-active t
+      solidity-flycheck-solium-checker-active t)
+(after! solidity-mode
+  (set-docsets! 'solidity-mode "Solidity"))
+
+
 ;; TypeScript
 
 (after! (typescript-mode lsp-ui flycheck)
