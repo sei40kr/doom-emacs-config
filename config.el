@@ -429,6 +429,14 @@
 (set-repl-handler! 'python-mode '+python/open-jupyter-repl)
 
 
+;; Ruby
+
+(after! (ruby-mode lsp-ui flycheck)
+  (set-next-checker! 'ruby-mode 'lsp-ui '(t . ruby-rubocop)))
+(after! (enh-ruby-mode lsp-ui flycheck)
+  (set-next-checker! 'enh-ruby-mode 'lsp-ui '(t . ruby-rubocop)))
+
+
 ;; Rust
 
 (after! (rustic flycheck)
