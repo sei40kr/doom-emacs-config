@@ -445,6 +445,8 @@
   (flycheck-add-mode 'rust 'rustic-mode)
   (flycheck-add-mode 'rust-cargo 'rustic-mode)
   (set-next-checker! 'rustic-mode 'rust-cargo 'rustic-clippy))
+(after! (rustic smartparens)
+  (sp-local-pair 'rustic-mode "'" nil :actions nil))
 
 
 ;; Solidity
