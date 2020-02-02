@@ -233,9 +233,7 @@
 ;; evil-surround
 (after! evil-surround
   (map! :map evil-surround-mode-map
-        :v
-        "s" 'evil-surround-edit
-        "S" 'evil-snipe-s))
+        :v "s" 'evil-surround-region))
 
 ;; expand-region
 (after! expand-region
