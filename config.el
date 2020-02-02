@@ -230,6 +230,13 @@
   (evil-set-command-property 'evil-shift-left  :keep-visual t)
   (evil-set-command-property 'evil-shift-right :keep-visual t))
 
+;; evil-surround
+(after! evil-surround
+  (map! :map evil-surround-mode-map
+        :v
+        "s" 'evil-surround-edit
+        "S" 'evil-snipe-s))
+
 ;; Esc to escape from key sequence
 (after! transient
   (map! :map (transient-map transient-edit-map)
