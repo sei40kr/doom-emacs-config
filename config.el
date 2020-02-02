@@ -237,6 +237,11 @@
         "s" 'evil-surround-edit
         "S" 'evil-snipe-s))
 
+;; expand-region
+(after! expand-region
+  (map! :nv "C-=" #'er/contract-region
+        :nv "C-+" #'er/expand-region))
+
 ;; Esc to escape from key sequence
 (after! transient
   (map! :map (transient-map transient-edit-map)
