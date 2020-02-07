@@ -252,9 +252,8 @@
 ;; Spacemacs-like multiple cursors key bindings
 (after! evil-mc
   (map!
-   :ni
-   "C-M-j" 'evil-mc-make-cursor-move-next-line
-   "C-M-k" 'evil-mc-make-cursor-move-prev-line
+   :ni "C-M-j" 'evil-mc-make-cursor-move-next-line
+   :ni "C-M-k" 'evil-mc-make-cursor-move-prev-line
    :map evil-mc-key-map))
 
 
