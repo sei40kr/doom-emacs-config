@@ -200,24 +200,28 @@
 
 ;; Editor
 
-;; C-h
-(map! :g "C-h" 'delete-backward-char)
+(map! :g "C-h" nil
+      :ie "C-h" #'backward-delete-char-untabify
+      :map minibuffer-local-map
+      :g "C-h" #'doom/silent-backward-delete-char)
 (after! company
   (map! :map company-active-map
         :g "C-h" nil))
-(after! helm
-  (map! :map helm-map
-        :g "C-h" 'doom/silent-backward-delete-char))
-(after! org-mode
-  (map! :map org-mode-map
-        :i "C-h" 'org-delete-backward-char
-        :e "C-h" 'org-delete-backward-char))
+(after! evil
+  (map! :map evil-ex-completion-map
+      :g "C-h" #'evil-ex-delete-backward-char))
+(after! evil-org
+  (map! :map evil-org-mode-map
+        :i "C-h" (general-predicate-dispatch 'evil-org-delete-backward-char
+                   (org-at-table-p) 'org-table-previous-field)
+        :e "C-h" (general-predicate-dispatch 'backward-delete-char-untabify
+                   (org-at-table-p) 'org-table-previous-field)))
+(after! ivy
+  (map! :map ivy-minibuffer-map
+        :g "C-h" #'ivy-backward-delete-char))
 (after! vterm
-  (add-to-list 'vterm-eval-cmds '("evil-normal-state" evil-normal-state))
-
   (map! :map vterm-mode-map
-        :i "C-h" 'vterm--self-insert
-        :e "C-h" 'vterm--self-insert))
+        :ie "C-h" 'vterm--self-insert))
 
 ;; Retain visual-mode on selection shift
 (after! evil
