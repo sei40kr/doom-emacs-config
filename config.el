@@ -356,27 +356,25 @@
 
 ;; Projectile
 
+(defun +projectile--load-known-projects-a (&rest _)
+  (require 'magit)
+  (setq projectile-known-projects
+        (mapcar #'abbreviate-file-name (magit-list-repos))))
+
 (after! projectile
   (setq projectile-git-submodule-command nil))
 
-(defun +custom--projectile-register-magit-repos ()
-  (require 'magit)
-  (setq projectile-known-projects (mapcar 'abbreviate-file-name
-                                          (magit-list-repos))))
 (advice-add 'projectile-load-known-projects
-            :override '+custom--projectile-register-magit-repos)
-(advice-add 'projectile-remove-known-project
-            :override '(lambda (&optional _)))
-(advice-add 'projectile-add-known-projects
-            :override '(lambda (_)))
-(dolist (func '(projectile-cleanup-known-projects
+            :override #'+projectile--load-known-projects-a)
+(dolist (func '(projectile-add-known-projects
+                projectile-cleanup-known-projects
                 projectile-clear-known-projects
-                projectile-save-known-projects
-                projectile-merge-known-projects))
-  (advice-add func :override '+custom--noop))
-(advice-add 'helm-projectile-switch-project
-            :before '(lambda (&optional _)
-                       (+custom--projectile-register-magit-repos)))
+                projectile-merge-known-projects
+                projectile-remove-known-project
+                projectile-save-known-projects))
+  (advice-add func :override #'(lambda (&rest _))))
+(advice-add 'counsel-projectile-switch-project
+            :before #'+projectile--load-known-projects-a)
 
 
 ;; C/C++
