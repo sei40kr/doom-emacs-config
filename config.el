@@ -72,7 +72,9 @@
                                       go-mode
                                       rustic-mode)
       +format-preserve-indentation nil
-      +lsp-company-backend '(company-lsp :with company-yasnippet))
+      +lsp-company-backend '(company-lsp :with company-yasnippet)
+      evil-snipe-repeat-keys t
+      evil-snipe-repeat-scope 'line)
 
 (global-auto-revert-mode +1)
 
