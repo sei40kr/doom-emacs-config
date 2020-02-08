@@ -61,7 +61,8 @@
 
 (defun +custom--noop (&rest _))
 
-(setq +popup-default-alist '((window-height . 30)
+(setq confirm-nonexistent-file-or-buffer nil
+      +popup-default-alist '((window-height . 30)
                              (reusable-frames . 'visible))
       +workspaces-switch-project-function '(lambda (_))
       +workspaces-on-switch-project-behavior t
