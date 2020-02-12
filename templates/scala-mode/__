@@ -1,3 +1,7 @@
+# -*- mode: snippet -*-
+# group: file templates
+# contributor: Seong Yong-ju
+# --
 package `(yas-java-project-package)`
 
 /**

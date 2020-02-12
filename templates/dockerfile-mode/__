@@ -1,6 +1,10 @@
+# -*- mode: snippet -*-
+# group: file templates
+# contributor: Seong Yong-ju
+# --
 FROM alpine
 
-LABEL Seong Yong-ju <sei40kr@gmail.com>
+LABEL maintainer '`user-full-name`'
 
 RUN addgroup -S app && \
   adduser -G app -S app && \

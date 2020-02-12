@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# group: file templates
+# contributor: Seong Yong-ju
+# --
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$0

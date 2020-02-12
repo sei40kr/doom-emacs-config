@@ -1,3 +1,7 @@
+# -*- mode: snippet -*-
+# group: file templates
+# contributor: Seong Yong-ju
+# --
 #include <string.h>
 #include <stdio.h>
 
