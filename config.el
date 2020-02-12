@@ -49,16 +49,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(use-package! atcoder-tools
-  :defer t
-  :load-path "~/.doom.d/packages/atcoder-tools")
-(use-package! competitive-programming-snippets
-  :config
-  (competitive-programming-snippets-initialize)
-  :after yasnippet
-  :load-path "~/.doom.d/packages/competitive-programming-snippets")
-
-
 (defun +custom--noop (&rest _))
 
 (setq confirm-nonexistent-file-or-buffer nil
@@ -288,6 +278,14 @@
  '("-volumeclaim\\.ya?ml$"  :trigger "__-volumeclaim.yml"   :mode yaml-mode)
  '("/ecs-params\\.yml$"     :trigger "__ecs-params.yml"     :mode yaml-mode)
  '("/\\.travis\\.ya?ml$"    :trigger "__travis.yml"         :mode yaml-mode))
+
+
+;; Snippets
+
+(use-package! competitive-programming-snippets
+  :after yasnippet
+  :config
+  (competitive-programming-snippets-initialize))
 
 
 ;; Doom Themes
