@@ -86,9 +86,8 @@
         centaur-tabs-buffer-groups-function 'centaur-tabs-projectile-buffer-groups)
 
   (map! :map centaur-tabs-mode-map
-        :g
-        "M-<left>"  'centaur-tabs-backward-tab
-        "M-<right>" 'centaur-tabs-forward-tab))
+        :g "M-<left>"  'centaur-tabs-backward-tab
+        :g "M-<right>" 'centaur-tabs-forward-tab))
 
 
 ;; Treemacs
