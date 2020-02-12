@@ -229,9 +229,8 @@
         :v "s" 'evil-surround-region))
 
 ;; expand-region
-(after! expand-region
-  (map! :nv "C-=" #'er/contract-region
-        :nv "C-+" #'er/expand-region))
+(map! :nv "C-=" #'er/contract-region
+      :nv "C-+" #'er/expand-region)
 
 ;; Esc to escape from key sequence
 (after! transient
