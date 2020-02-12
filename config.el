@@ -73,9 +73,7 @@
                                       go-mode
                                       rustic-mode)
       +format-preserve-indentation nil
-      +lsp-company-backend '(company-lsp :with company-yasnippet)
-      evil-snipe-repeat-keys t
-      evil-snipe-repeat-scope 'line)
+      +lsp-company-backend '(company-lsp :with company-yasnippet))
 
 (global-auto-revert-mode +1)
 
@@ -230,6 +228,11 @@
 (after! evil
   (evil-set-command-property 'evil-shift-left  :keep-visual t)
   (evil-set-command-property 'evil-shift-right :keep-visual t))
+
+;; evil-snipe
+(after! evil-snipe
+  (setq evil-snipe-repeat-keys t
+        evil-snipe-repeat-scope 'line))
 
 ;; evil-surround
 (after! evil-surround
