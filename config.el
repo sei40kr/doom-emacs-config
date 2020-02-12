@@ -311,12 +311,6 @@
    '(treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0))))))
 
 
-;; Helm
-
-(after! helm
-  (setq helm-mini-default-sources '(helm-source-buffers-list)))
-
-
 ;; Perspective
 
 (after! persp-mode
@@ -459,8 +453,6 @@
 
 (setq solidity-flycheck-solc-checker-active t
       solidity-flycheck-solium-checker-active t)
-(after! solidity-mode
-  (set-docsets! 'solidity-mode "Solidity"))
 
 
 ;; TypeScript
