@@ -382,6 +382,11 @@
       (java-mode ".java"))))
 
 
+;; Docker
+(after! docker-tramp
+  (setq docker-tramp-use-names t))
+
+
 ;; Go
 
 (after! (go-mode lsp-ui flycheck)
