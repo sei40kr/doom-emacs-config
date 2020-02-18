@@ -462,7 +462,7 @@
 
 (setq solidity-flycheck-solc-checker-active t
       solidity-flycheck-solium-checker-active t)
-(after! company-solidity
+(after! solidity-mode
   (set-company-backend! 'solidity-mode
     '(company-solidity :with company-yasnippet)))
 
