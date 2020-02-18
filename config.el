@@ -68,6 +68,12 @@
 (global-auto-revert-mode +1)
 
 
+;; Company
+
+(after! company-box
+  (setq company-box-doc-enable nil))
+
+
 ;; Tabs
 
 (after! centaur-tabs
