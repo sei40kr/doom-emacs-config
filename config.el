@@ -320,19 +320,9 @@
 
 ;; LSP
 
-(after! lsp-ui
-  (setq lsp-ui-flycheck-live-reporting nil)
-  (add-to-list 'flycheck-checkers 'lsp-ui)
-  (defun +custom--lsp-ui-flycheck-enable (_)
-    "Enable flycheck integration for the current buffer."
-    (setq-local lsp-ui-flycheck--save-mode
-                (or (memq 'save flycheck-check-syntax-automatically)
-                    lsp-ui-flycheck--save-mode))
-    (setq-local flycheck-check-syntax-automatically nil)
-    (lsp-ui-flycheck-add-mode major-mode)
-    (add-hook 'lsp-after-diagnostics-hook 'lsp-ui-flycheck--report nil t))
-  (advice-add 'lsp-ui-flycheck-enable
-              :override '+custom--lsp-ui-flycheck-enable))
+(after! lsp-mode
+  (setq-hook! 'lsp-mode-hook
+    company-idle-delay 0.2))
 
 
 ;; Version Control
