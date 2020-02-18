@@ -380,7 +380,7 @@
 (after! cc-mode
   (set-formatter! 'clang-format
     '("clang-format"
-      ("-assume-filename=%S" (or buffer-file-name mode-result ""))
+      ("-assume-filename=%s" (or buffer-file-name mode-result ""))
       ("-style=Google"))
     :modes
     '((c-mode ".c")
