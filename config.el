@@ -401,15 +401,16 @@
 
 ;; Java
 
-(setq lsp-java-maven-download-sources t
-      lsp-java-format-enabled nil
-      lsp-java-autobuild-enabled nil
-      lsp-java-selection-enabled nil
-      lsp-java-format-comments-enabled nil
-      lsp-java-format-on-type-enabled nil
-      lsp-java-code-generation-use-blocks t
-      lsp-java-code-generation-generate-comments t
-      lsp-java-code-generation-to-string-code-style "STRING_BUILDER")
+(after! lsp-java
+  (setq lsp-java-maven-download-sources t
+        lsp-java-format-enabled nil
+        lsp-java-autobuild-enabled nil
+        lsp-java-selection-enabled nil
+        lsp-java-format-comments-enabled nil
+        lsp-java-format-on-type-enabled nil
+        lsp-java-code-generation-use-blocks t
+        lsp-java-code-generation-generate-comments t
+        lsp-java-code-generation-to-string-code-style "STRING_BUILDER"))
 
 
 ;; JavaScript
