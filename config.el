@@ -424,8 +424,11 @@
 
 
 ;; Markdown
+
 (after! markdown-mode
-  (setq markdown-header-scaling t))
+  (setq markdown-header-scaling t)
+
+  (set-company-backend! '(markdown-mode gfm-mode) '(company-emoji)))
 (after! grip-mode
   (require 'auth-source)
   (let* ((credential (auth-source-user-and-password "api.github.com")))
