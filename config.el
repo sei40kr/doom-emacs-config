@@ -336,7 +336,9 @@
     :modes
     '((c-mode ".c")
       (c++-mode ".cpp")
-      (java-mode ".java"))))
+      (java-mode ".java")
+      (objc-mode ".m")
+      (protobuf-mode ".proto"))))
 
 
 ;; emacs/vc
