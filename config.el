@@ -82,14 +82,16 @@
 
 ;; completion/company
 
-(after! company-box
-  (setq company-box-doc-enable nil))
+(when (featurep! :completion company)
+  (after! company-box
+    (setq company-box-doc-enable nil)))
 
 
 ;; ui/doom
 
-(after! doom-themes
-  (setq doom-modeline-buffer-file-name-style #'truncate-upto-root))
+(when (featurep! :ui doom)
+  (after! doom-themes
+    (setq doom-modeline-buffer-file-name-style #'truncate-upto-root)))
 
 
 ;; ui/popup
