@@ -359,11 +359,13 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (setq +lsp-company-backend '(company-lsp :with company-yasnippet))
+  (setq +lsp-company-backend
+        '(company-yasnippet :separate company-lsp))
 
   (after! lsp-mode
     (setq-hook! 'lsp-mode-hook
-      company-idle-delay 0.2))
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1))
 
   ;; LSP + Doom Themes
   (defun +custom--pick-doom-color (key)
