@@ -52,7 +52,6 @@
 (defun +custom--noop (&rest _))
 
 (setq confirm-nonexistent-file-or-buffer nil
-      gc-cons-threshold (* 1024 1024 1024)
       vc-follow-symlinks t)
 
 (global-auto-revert-mode +1)
@@ -365,8 +364,9 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (setq +lsp-company-backend
-        '(company-yasnippet :separate company-lsp))
+  (setq +lsp-company-backend '(company-yasnippet :separate company-lsp)
+        gc-cons-threshold (* 1024 1024 1024)
+        read-process-output-max (* 1024 1024))
 
   (after! lsp-mode
     (setq-hook! 'lsp-mode-hook
