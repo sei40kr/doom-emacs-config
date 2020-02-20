@@ -56,8 +56,9 @@
 
 (global-auto-revert-mode +1)
 
-(add-hook! '(text-mode-hook prog-mode-hook)
-           #'display-fill-column-indicator-mode)
+(when (featurep 'display-fill-column-indicator)
+  (add-hook! '(text-mode-hook prog-mode-hook)
+             #'display-fill-column-indicator-mode))
 
 
 ;; core
