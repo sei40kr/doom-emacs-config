@@ -58,7 +58,7 @@
 
 (when (featurep 'display-fill-column-indicator)
   (add-hook! '(text-mode-hook prog-mode-hook)
-             #'display-fill-column-indicator-mode))
+    (display-fill-column-indicator-mode 1)))
 
 
 ;; core
