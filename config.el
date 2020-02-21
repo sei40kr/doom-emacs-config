@@ -383,8 +383,10 @@
   (defun +custom--pick-doom-color (key)
     (nth (if (display-graphic-p) 0 1) (alist-get key doom-themes--colors)))
   (after! (lsp-ui doom-themes)
-    (setq lsp-ui-imenu-colors '((+custom--pick-doom-color 'cyan)
-                                (+custom--pick-doom-color 'green)))))
+    (setq lsp-ui-imenu-colors `(,(+custom--pick-doom-color 'dark-blue)
+                                ,(+custom--pick-doom-color 'cyan)))
+    (set-face-foreground 'lsp-ui-sideline-code-action
+                         (+custom--pick-doom-color 'yellow))))
 
 
 ;; tools/docker
