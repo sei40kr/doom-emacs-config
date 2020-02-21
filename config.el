@@ -451,6 +451,31 @@
             grip-github-password (cadr credential)))))
 
 
+;; lang/org
+
+(after! org
+  (set-company-backend! 'org-mode
+    'company-capf
+    'company-dabbrev
+    'company-files
+    'company-yasnippet)
+  (add-hook 'org-mode-hook #'jupyter-org-interaction-mode)
+
+  (defun +custom/org-lookup-documentation ()
+    (interactive)
+    (when-let* ((info (org-babel-get-src-block-info)))
+      (when (and (string-prefix-p "jupyter-" (car info))
+                 (symbolp (call-interactively #'jupyter-inspect-at-point)))
+        (pop-to-buffer (help-buffer))
+        t)))
+  (set-lookup-handlers! 'org-mode
+    :documentation #'+custom/org-lookup-documentation)
+
+  (setq-hook! 'org-mode-hook
+    company-idle-delay 0.2
+    company-minimum-prefix-length 1))
+
+
 ;; lang/python
 
 (when (featurep! :lang python)
