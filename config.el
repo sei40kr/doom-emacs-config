@@ -548,7 +548,27 @@
 
   (setq-hook! 'org-mode-hook
     company-idle-delay 0.2
-    company-minimum-prefix-length 1))
+    company-minimum-prefix-length 1)
+
+  (after! company-box
+    (defconst +custom--company-box-icons-jupyter-alist
+      '(("class"     . Class)
+        ("function"  . Function)
+        ("instance"  . Variable)
+        ("keyword"   . Keyword)
+        ("module"    . Module)
+        ("statement" . Variable)
+        ("param"     . Property)
+        ("path"      . File)))
+
+    (defun +custom--company-box-icons-jupyter (candidate)
+      (when (and (eq major-mode 'org-mode)
+                 (string-equal (car (org-babel-get-src-block-info))
+                               "jupyter-python"))
+        (alist-get (string-trim (get-text-property 0 'annot candidate))
+                   +custom--company-box-icons-jupyter-alist
+                   nil nil #'string-equal)))
+    (push #'+custom--company-box-icons-jupyter company-box-icons-functions)))
 
 
 ;; lang/python
