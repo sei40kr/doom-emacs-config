@@ -601,6 +601,7 @@
 
 ;; config/default
 
-(when (featurep! :config default)
+(when (and (featurep! :config default)
+           (featurep 'evil))
   (map! :leader
         :desc "Jump to character" "j" #'evil-avy-goto-char))
