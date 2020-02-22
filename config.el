@@ -597,3 +597,10 @@
 (when (featurep! :lang web)
   (after! emmet-mode
     (setq emmet-self-closing-tag-style " /")))
+
+
+;; config/default
+
+(when (featurep! :config default)
+  (map! :leader
+        :desc "Jump to character" "j" #'evil-avy-goto-char))
