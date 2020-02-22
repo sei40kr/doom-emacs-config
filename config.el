@@ -203,8 +203,8 @@
       (+custom--lsp-treemacs-do-for-button-state!
        :on-lsp-error-open           (lsp-treemacs-open-error btn)
        :on-lsp-error-closed         (lsp-treemacs-open-error btn)
-       :on-lsp-files-open           (lsp-treemacs-open-file btn)
-       :on-lsp-files-closed         (lsp-treemacs-open-file btn)
+       :on-lsp-files-open           (treemacs-next-line 1)
+       :on-lsp-files-closed         (treemacs-expand-lsp-files)
        :on-lsp-projects-open        (treemacs-next-line 1)
        :on-lsp-projects-closed      (treemacs-expand-lsp-projects btn)
        :on-lsp-symbol-open          (lsp-treemacs-goto-symbol)
