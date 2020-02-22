@@ -558,6 +558,9 @@
     (advice-add #'+org/dwim-at-point
                 :before-until #'+custom--org-dwim-at-point-a))
 
+  (after! jupyter
+    (delq :text/html jupyter-org-mime-types))
+
   (after! company-box
     (defconst +custom--company-box-icons-jupyter-alist
       '(("class"     . Class)
