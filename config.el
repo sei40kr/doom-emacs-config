@@ -56,7 +56,7 @@
 
 (global-auto-revert-mode +1)
 
-(when (featurep 'display-fill-column-indicator)
+(when EMACS27+
   (add-hook! '(text-mode-hook prog-mode-hook)
     (display-fill-column-indicator-mode 1)))
 
