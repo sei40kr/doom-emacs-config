@@ -130,6 +130,40 @@
     (defun +custom--treemacs-no-actions ()
       (treemacs-pulse-on-failure "There is nothing to do here."))
 
+    (cl-defmacro +custom--lsp-treemacs-do-for-button-state!
+        (&key on-lsp-error-open
+              on-lsp-error-closed
+              on-lsp-files-open
+              on-lsp-files-closed
+              on-lsp-projects-open
+              on-lsp-projects-closed
+              on-lsp-symbol-open
+              on-lsp-symbol-closed
+              on-lsp-treemacs-deps-open
+              on-lsp-treemacs-deps-closed)
+      `(if-let* ((btn (treemacs-current-button)))
+           (pcase (treemacs-button-get btn :state)
+             ,@(when on-lsp-error-open
+                 `(('treemacs-lsp-error-open-state ,on-lsp-error-open)))
+             ,@(when on-lsp-error-closed
+                 `(('treemacs-lsp-error-closed-state ,on-lsp-error-closed)))
+             ,@(when on-lsp-files-open
+                 `(('treemacs-lsp-files-open-state ,on-lsp-files-open)))
+             ,@(when on-lsp-files-closed
+                 `(('treemacs-lsp-files-closed-state ,on-lsp-files-closed)))
+             ,@(when on-lsp-projects-open
+                 `(('treemacs-lsp-projects-open-state ,on-lsp-projects-open)))
+             ,@(when on-lsp-projects-closed
+                 `(('treemacs-lsp-projects-closed-state ,on-lsp-projects-closed)))
+             ,@(when on-lsp-symbol-open
+                 `(('treemacs-lsp-symbol-open-state ,on-lsp-symbol-open)))
+             ,@(when on-lsp-symbol-closed
+                 `(('treemacs-lsp-symbol-closed-state ,on-lsp-symbol-closed)))
+             ,@(when on-lsp-treemacs-deps-open
+                 `(('treemacs-lsp-treemacs-deps-open-state ,on-lsp-treemacs-deps-open)))
+             ,@(when on-lsp-treemacs-deps-closed
+                 `(('treemacs-lsp-treemacs-deps-closed-state ,on-lsp-treemacs-deps-closed))))))
+
     (defun +custom/treemacs/collapse-or-up (&rest _)
       (interactive "P")
       (treemacs-do-for-button-state
@@ -142,7 +176,16 @@
        :on-tag-node-open    (treemacs--collapse-tag-node btn)
        :on-tag-node-closed  (treemacs-goto-parent-node)
        :on-tag-node-leaf    (treemacs-goto-parent-node)
-       :on-nil              (+custom--treemacs-no-actions)))
+       :no-error            t)
+      (+custom--lsp-treemacs-do-for-button-state!
+       :on-lsp-error-open           (treemacs-goto-parent-node)
+       :on-lsp-error-closed         (treemacs-goto-parent-node)
+       :on-lsp-files-open           (treemacs-collapse-lsp-files btn)
+       :on-lsp-files-closed         (treemacs-goto-parent-node)
+       :on-lsp-projects-open        (treemacs-collapse-lsp-projects btn)
+       :on-lsp-projects-closed      (+custom--treemacs-no-actions)
+       :on-lsp-symbol-open          (treemacs-collapse-lsp-symbol btn)
+       :on-lsp-symbol-closed        (treemacs-goto-parent-node)))
 
     (defun +custom/treemacs/expand-or-down (&optional arg)
       (interactive "P")
@@ -156,7 +199,16 @@
        :on-tag-node-open    (treemacs-next-line 1)
        :on-tag-node-closed  (treemacs--expand-tag-node btn)
        :on-tag-node-leaf    (treemacs-visit-node-default)
-       :on-nil              (+custom--treemacs-no-actions)))
+       :no-error            t)
+      (+custom--lsp-treemacs-do-for-button-state!
+       :on-lsp-error-open           (lsp-treemacs-open-error btn)
+       :on-lsp-error-closed         (lsp-treemacs-open-error btn)
+       :on-lsp-files-open           (lsp-treemacs-open-file btn)
+       :on-lsp-files-closed         (lsp-treemacs-open-file btn)
+       :on-lsp-projects-open        (treemacs-next-line 1)
+       :on-lsp-projects-closed      (treemacs-expand-lsp-projects btn)
+       :on-lsp-symbol-open          (lsp-treemacs-goto-symbol)
+       :on-lsp-symbol-closed        (lsp-treemacs-goto-symbol)))
 
     (defun +custom/treemacs/root-up (&rest _)
       (interactive "P")
@@ -176,8 +228,7 @@
        :on-file-node-closed (treemacs--expand-file-node btn)
        :on-tag-node-open    (+custom--noop)
        :on-tag-node-closed  (treemacs--expand-tag-node btn)
-       :on-tag-node-leaf    (+custom--noop)
-       :on-nil              (+custom--noop))
+       :on-tag-node-leaf    (+custom--noop))
       (when-let* ((btn (treemacs-current-button))
                   (_ (treemacs-collect-child-nodes btn)))
         (treemacs-next-line 1)))
@@ -193,8 +244,7 @@
        :on-file-node-closed (treemacs-goto-parent-node)
        :on-tag-node-open    (treemacs-goto-parent-node)
        :on-tag-node-closed  (treemacs-goto-parent-node)
-       :on-tag-node-leaf    (treemacs-goto-parent-node)
-       :on-nil              (+custom--treemacs-no-actions)))
+       :on-tag-node-leaf    (treemacs-goto-parent-node)))
 
     (setq treemacs-RET-actions-config
           '((root-node-open   . +custom/treemacs/expand-or-down)
