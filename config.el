@@ -550,6 +550,14 @@
     company-idle-delay 0.2
     company-minimum-prefix-length 1)
 
+  (after! org
+    (defun +custom--org-dwim-at-point-a ()
+      (when (string-prefix-p "jupyter-" (car (org-babel-get-src-block-info)))
+        (jupyter-org-execute-and-next-block)
+        t))
+    (advice-add #'+org/dwim-at-point
+                :before-until #'+custom--org-dwim-at-point-a))
+
   (after! company-box
     (defconst +custom--company-box-icons-jupyter-alist
       '(("class"     . Class)
