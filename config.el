@@ -86,7 +86,7 @@
 ;; completion/company
 
 (when (featurep! :completion company)
-  (after! company
+  (after! (:or company company-tng)
     (map! :map company-active-map
           "TAB" t
           [tab] t
