@@ -550,7 +550,10 @@
     'company-dabbrev
     'company-files
     'company-yasnippet)
-  (add-hook 'org-mode-hook #'jupyter-org-interaction-mode)
+  (defun +custom/org/jupyter-org-interaction-mode-h ()
+    (require 'ob-jupyter)
+    (jupyter-org-interaction-mode 1))
+  (add-hook 'org-mode-hook #'+custom/org/jupyter-org-interaction-mode-h)
 
   (defun +custom/org-lookup-documentation ()
     (interactive)
