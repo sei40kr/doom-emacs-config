@@ -522,11 +522,9 @@
 (when (featurep! :lang java)
   (after! lsp-java
     (setq lsp-java-maven-download-sources t
-          lsp-java-format-enabled nil
           lsp-java-autobuild-enabled nil
           lsp-java-selection-enabled nil
-          lsp-java-format-comments-enabled nil
-          lsp-java-format-on-type-enabled nil
+          lsp-java-format-settings-url "http://google.github.io/styleguide/eclipse-java-google-style.xml"
           lsp-java-code-generation-use-blocks t
           lsp-java-code-generation-generate-comments t
           lsp-java-code-generation-to-string-code-style "STRING_BUILDER")))
