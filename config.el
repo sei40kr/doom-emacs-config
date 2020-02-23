@@ -466,7 +466,20 @@
   (after! lsp-mode
     (setq-hook! 'lsp-mode-hook
       company-idle-delay 0.0
-      company-minimum-prefix-length 1))
+      company-minimum-prefix-length 1)
+
+    ;; prevent lsp from explicitly selecting the lsp checker
+    (defun +custom/lsp/lsp-flycheck-enable-a (&rest _)
+      (flycheck-mode 1)
+      (when lsp-flycheck-live-reporting
+        (setq-local flycheck-check-syntax-automatically nil))
+      ;; (setq-local flycheck-checker 'lsp)
+      (lsp-flycheck-add-mode major-mode)
+      (add-to-list 'flycheck-checkers 'lsp)
+      (add-hook 'lsp-after-diagnostics-hook #'lsp--flycheck-report nil t))
+    (advice-add #'lsp-flycheck-enable
+                :override #'+custom/lsp/lsp-flycheck-enable-a))
+
   (after! lsp-ui
     (setq lsp-ui-sideline-show-diagnostics nil))
 
@@ -499,9 +512,9 @@
 
 ;; lang/go
 
-(when (featurep! :lang go)
-  (after! (go-mode lsp-ui flycheck)
-    (set-next-checker! 'go-mode 'lsp-ui '(t . go-gofmt))))
+(when (and (featurep! :lang go)
+           (featurep! :checkers syntax))
+  (set-next-checker! 'go-mode 'lsp 'go-gofmt))
 
 
 ;; lang/java
@@ -521,10 +534,15 @@
 
 ;; lang/javascript
 
-(when (featurep! :lang javascript)
-  (after! ((:or js2-mode rjsx-mode) flycheck)
+(when (and (featurep! :lang javascript)
+           (featurep! :checkers syntax))
+  (after! flycheck
     (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
-    (add-to-list 'flycheck-disabled-checkers 'javascript-standard)))
+    (add-to-list 'flycheck-disabled-checkers 'javascript-standard))
+
+  (when (featurep! :lang javascript +lsp)
+    (set-next-checker! 'js2-mode  'lsp 'javascript-eslint)
+    (set-next-checker! 'rjsx-mode 'lsp 'javascript-eslint)))
 
 
 ;; lang/markdown
@@ -603,27 +621,30 @@
 
 ;; lang/python
 
-(when (featurep! :lang python)
-  (after! (python lsp-ui flycheck)
-    (set-next-checker! 'python-mode 'lsp-ui '(t . python-flake8))))
+(when (and (featurep! :lang python +lsp)
+           (featurep! :checkers syntax))
+  (set-next-checker! 'python-mode 'lsp 'python-flake8))
 
 
 ;; lang/ruby
 
-(when (featurep! :lang ruby)
-  (after! (ruby-mode lsp-ui flycheck)
-    (set-next-checker! 'ruby-mode 'lsp-ui '(t . ruby-rubocop)))
-  (after! (enh-ruby-mode lsp-ui flycheck)
-    (set-next-checker! 'enh-ruby-mode 'lsp-ui '(t . ruby-rubocop))))
+(when (and (featurep! :lang ruby +lsp)
+           (featurep! :checkers syntax))
+  (set-next-checker! 'ruby-mode     'lsp 'ruby-rubocop)
+  (set-next-checker! 'enh-ruby-mode 'lsp 'ruby-rubocop))
 
 
 ;; lang/rust
 
-(when (featurep! :lang rust)
-  (after! (rustic flycheck)
-    (flycheck-add-mode 'rust 'rustic-mode)
-    (flycheck-add-mode 'rust-cargo 'rustic-mode)
-    (set-next-checker! 'rustic-mode 'rust-cargo 'rustic-clippy)))
+(when (and (featurep! :lang rust)
+           (featurep! :checkers syntax))
+  (when (featurep! :tools lsp)
+    (set-next-checker! 'rustic-mode 'rust 'lsp))
+  (setq-hook! 'rustic-mode-hook
+    flycheck-checker 'rust)
+
+  (after! flycheck
+    (flycheck-add-mode 'rust 'rustic-mode)))
 
 
 ;; lang/solidity
@@ -638,8 +659,9 @@
 
 ;; TypeScript
 
-(after! (typescript-mode lsp-ui flycheck)
-  (set-next-checker! 'typescript-mode 'lsp-ui '(t . javascript-eslint)))
+(when (and (featurep! :lang javascript)
+           (featurep! :checkers syntax))
+  (set-next-checker! 'typescript-mode 'lsp 'javascript-eslint))
 
 
 ;; lang/web
