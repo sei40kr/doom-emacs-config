@@ -88,9 +88,9 @@
 (when (featurep! :completion company)
   (after! company
     (map! :map company-active-map
-          "TAB" t
-          [tab] t
-          [backtab] t))
+          "TAB" nil
+          [tab] nil
+          [backtab] nil))
 
   (after! company-box
     (setq company-box-doc-enable nil)))
