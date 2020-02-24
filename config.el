@@ -697,7 +697,7 @@
         solidity-flycheck-solium-checker-active t)
   (after! solidity-mode
     (set-company-backend! 'solidity-mode
-      '(company-solidity :with company-yasnippet))))
+      '(company-yasnippet :separate company-solidity))))
 
 
 ;; TypeScript
