@@ -717,6 +717,6 @@
 ;; config/default
 
 (when (and (featurep! :config default)
-           (featurep 'evil))
+           (fboundp 'evil-mode))
   (map! :leader
         :desc "Jump to character" "j" #'evil-avy-goto-char))
