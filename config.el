@@ -112,6 +112,7 @@
   ;; copied from @fuxialexander's Doom Emacs config
   (after! xwidget
     (defun +custom/xwidget-webkit-goto-url-a (url)
+      "Goto URL."
       (if (xwidget-webkit-current-session)
           (progn
             (xwidget-webkit-goto-uri (xwidget-webkit-current-session) url)
@@ -119,19 +120,24 @@
         (xwidget-webkit-new-session url)))
     (advice-add #'xwidget-webkit-goto-url
                 :override #'+custom/xwidget-webkit-goto-url-a)
+
     (defun +custom/xwidget-webkit-new-session-a (url)
-      (let* ((bufname (generate-new-buffer-name "xwidget-webkit"))
+      "Create a new webkit session buffer with URL."
+      (let* ((bufname (generate-new-buffer-name "*xwidget-webkit*"))
              xw)
         (setq xwidget-webkit-last-session-buffer (get-buffer-create bufname)
-              xwidget-webkit-created-window (display-buffer
-                                             xwidget-webkit-last-session-buffer))
+              xwidget-webkit-created-window      (display-buffer
+                                                  xwidget-webkit-last-session-buffer))
+        ;; The xwidget id is stored in a text property, so we need to have
+        ;; at least character in this buffer.
+        ;; Insert invisible url, good default for next `g' to browse url.
         (with-selected-window xwidget-webkit-created-window
           (insert url)
           (put-text-property 1 (+ 1 (length url)) 'invisible t)
           (setq xw (xwidget-insert 1 'webkit bufname
                                    (xwidget-window-inside-pixel-width (selected-window))
                                    (xwidget-window-inside-pixel-height (selected-window))))
-          (xwidget-put xw 'callback #'xwidget-webkit-callback)
+          (xwidget-put xw 'callback 'xwidget-webkit-callback)
           (xwidget-webkit-mode)
           (xwidget-webkit-goto-uri (xwidget-webkit-last-session) url))))
     (advice-add #'xwidget-webkit-new-session
