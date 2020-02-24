@@ -49,8 +49,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(defun +custom--noop (&rest _))
-
 (setq confirm-nonexistent-file-or-buffer nil
       vc-follow-symlinks t)
 
@@ -107,256 +105,19 @@
 
 (when (featurep! :ui popup)
   (setq +popup-default-alist '((window-height . 30)
-                               (reusable-frames . 'visible)))
-
-  ;; copied from @fuxialexander's Doom Emacs config
-  (after! xwidget
-    (defun +custom/xwidget-webkit-goto-url-a (url)
-      "Goto URL."
-      (if (xwidget-webkit-current-session)
-          (progn
-            (xwidget-webkit-goto-uri (xwidget-webkit-current-session) url)
-            (display-buffer xwidget-webkit-last-session-buffer))
-        (xwidget-webkit-new-session url)))
-    (advice-add #'xwidget-webkit-goto-url
-                :override #'+custom/xwidget-webkit-goto-url-a)
-
-    (defun +custom/xwidget-webkit-new-session-a (url)
-      "Create a new webkit session buffer with URL."
-      (let* ((bufname (generate-new-buffer-name "*xwidget-webkit*"))
-             xw)
-        (setq xwidget-webkit-last-session-buffer (get-buffer-create bufname)
-              xwidget-webkit-created-window      (display-buffer
-                                                  xwidget-webkit-last-session-buffer))
-        ;; The xwidget id is stored in a text property, so we need to have
-        ;; at least character in this buffer.
-        ;; Insert invisible url, good default for next `g' to browse url.
-        (with-selected-window xwidget-webkit-created-window
-          (insert url)
-          (put-text-property 1 (+ 1 (length url)) 'invisible t)
-          (setq xw (xwidget-insert 1 'webkit bufname
-                                   (xwidget-window-inside-pixel-width (selected-window))
-                                   (xwidget-window-inside-pixel-height (selected-window))))
-          (xwidget-put xw 'callback 'xwidget-webkit-callback)
-          (xwidget-webkit-mode)
-          (xwidget-webkit-goto-uri (xwidget-webkit-last-session) url))))
-    (advice-add #'xwidget-webkit-new-session
-                :override #'+custom/xwidget-webkit-new-session-a))
-
-  (set-popup-rule! "^\\*xwidget"
-    :vslot -11 :size 0.35 :select nil))
+                               (reusable-frames . 'visible))))
 
 
 ;; ui/tabs
 
 (when (featurep! :ui tabs)
-  (after! centaur-tabs
-    (defun +custom--centaur-tabs-buffer-groups ()
-      (cond ((or (string-equal "*" (substring (buffer-name) 0 1))
-                 (memq major-mode '(magit-blame-mode
-                                    magit-blob-mode
-                                    magit-diff-mode
-                                    magit-file-mode
-                                    magit-log-mode
-                                    magit-process-mode
-                                    magit-status-mode))) '("Emacs"))
-            ((memq major-mode '(help-mode helpful-mode)) '("Help"))
-            ((memq major-mode '(org-mode
-                                diary-mode
-                                org-agenda-log-mode
-                                org-bullets-mode
-                                org-cdlatex-mode
-                                org-agenda-clockreport-mode
-                                org-agenda-mode
-                                org-beamer-mode
-                                org-indent-mode
-                                org-src-mode)) '("Org"))
-            ((eq major-mode 'xwidget-webkit-mode) '("Xwidgets"))
-            (t (centaur-tabs-projectile-buffer-groups))))
-
-    ;; list only workspace buffers
-    (setq centaur-tabs-buffer-list-function #'+workspace-buffer-list
-          centaur-tabs-buffer-groups-function #'+custom--centaur-tabs-buffer-groups
-          centaur-tabs-close-button "×")
-
-    (map! :map centaur-tabs-mode-map
-          "M-<left>"  #'centaur-tabs-backward-tab
-          "M-<right>" #'centaur-tabs-forward-tab)))
+  (load! "+tabs"))
 
 
 ;; ui/treemacs
 
 (when (featurep! :ui treemacs)
-  (after! treemacs
-    (defun +custom--treemacs-no-actions ()
-      (treemacs-pulse-on-failure "There is nothing to do here."))
-
-    (defun +custom/treemacs/collapse-lsp-symbol-or-goto-parent (btn)
-      (let* ((children (treemacs-collect-child-nodes btn)))
-        (treemacs--do-collapse-lsp-symbol btn)
-        (unless children
-          (treemacs-goto-parent-node))))
-
-    (defun +custom/treemacs/expand-or-goto-lsp-symbol (btn)
-      (treemacs--do-expand-lsp-symbol btn)
-      ;; (unless (treemacs-collect-child-nodes btn)
-      ;;   (lsp-treemacs-goto-symbol))
-      )
-
-    (cl-defmacro +custom--lsp-treemacs-do-for-button-state!
-        (&key on-lsp-error-open
-              on-lsp-error-closed
-              on-lsp-files-open
-              on-lsp-files-closed
-              on-lsp-projects-open
-              on-lsp-projects-closed
-              on-lsp-symbol-open
-              on-lsp-symbol-closed
-              on-lsp-treemacs-deps-open
-              on-lsp-treemacs-deps-closed)
-      `(if-let* ((btn (treemacs-current-button)))
-           (pcase (treemacs-button-get btn :state)
-             ,@(when on-lsp-error-open
-                 `(('treemacs-lsp-error-open-state ,on-lsp-error-open)))
-             ,@(when on-lsp-error-closed
-                 `(('treemacs-lsp-error-closed-state ,on-lsp-error-closed)))
-             ,@(when on-lsp-files-open
-                 `(('treemacs-lsp-files-open-state ,on-lsp-files-open)))
-             ,@(when on-lsp-files-closed
-                 `(('treemacs-lsp-files-closed-state ,on-lsp-files-closed)))
-             ,@(when on-lsp-projects-open
-                 `(('treemacs-lsp-projects-open-state ,on-lsp-projects-open)))
-             ,@(when on-lsp-projects-closed
-                 `(('treemacs-lsp-projects-closed-state ,on-lsp-projects-closed)))
-             ,@(when on-lsp-symbol-open
-                 `(('treemacs-lsp-symbol-open-state ,on-lsp-symbol-open)))
-             ,@(when on-lsp-symbol-closed
-                 `(('treemacs-lsp-symbol-closed-state ,on-lsp-symbol-closed)))
-             ,@(when on-lsp-treemacs-deps-open
-                 `(('treemacs-lsp-treemacs-deps-open-state ,on-lsp-treemacs-deps-open)))
-             ,@(when on-lsp-treemacs-deps-closed
-                 `(('treemacs-lsp-treemacs-deps-closed-state ,on-lsp-treemacs-deps-closed))))))
-
-    (defun +custom/treemacs/collapse-or-up (&rest _)
-      (interactive "P")
-      (treemacs-do-for-button-state
-       :on-root-node-open   (treemacs--collapse-root-node btn)
-       :on-root-node-closed (+custom--treemacs-no-actions)
-       :on-dir-node-open    (treemacs--collapse-dir-node btn)
-       :on-dir-node-closed  (treemacs-goto-parent-node)
-       :on-file-node-open   (treemacs--collapse-file-node btn)
-       :on-file-node-closed (treemacs-goto-parent-node)
-       :on-tag-node-open    (treemacs--collapse-tag-node btn)
-       :on-tag-node-closed  (treemacs-goto-parent-node)
-       :on-tag-node-leaf    (treemacs-goto-parent-node)
-       :no-error            t)
-      (+custom--lsp-treemacs-do-for-button-state!
-       :on-lsp-error-open           (treemacs-goto-parent-node)
-       :on-lsp-error-closed         (treemacs-goto-parent-node)
-       :on-lsp-files-open           (treemacs--do-collapse-lsp-files btn)
-       :on-lsp-files-closed         (treemacs-goto-parent-node)
-       :on-lsp-projects-open        (treemacs--do-collapse-lsp-projects btn)
-       :on-lsp-projects-closed      (+custom--treemacs-no-actions)
-       :on-lsp-symbol-open          (+custom/treemacs/collapse-lsp-symbol-or-goto-parent btn)
-       :on-lsp-symbol-closed        (treemacs-goto-parent-node)
-       :on-lsp-treemacs-deps-open   (treemacs--do-collapse-lsp-treemacs-deps btn)
-       :on-lsp-treemacs-deps-closed (treemacs-goto-parent-node)))
-
-    (defun +custom/treemacs/expand-or-down (&optional arg)
-      (interactive "P")
-      (treemacs-do-for-button-state
-       :on-root-node-open   (treemacs-next-line 1)
-       :on-root-node-closed (treemacs--expand-root-node btn)
-       :on-dir-node-open    (treemacs-next-line 1)
-       :on-dir-node-closed  (treemacs--expand-dir-node btn :recursive arg)
-       :on-file-node-open   (treemacs-visit-node-default)
-       :on-file-node-closed (treemacs-visit-node-default)
-       :on-tag-node-open    (treemacs-next-line 1)
-       :on-tag-node-closed  (treemacs--expand-tag-node btn)
-       :on-tag-node-leaf    (treemacs-visit-node-default)
-       :no-error            t)
-      (+custom--lsp-treemacs-do-for-button-state!
-       :on-lsp-error-open           (lsp-treemacs-open-error btn)
-       :on-lsp-error-closed         (lsp-treemacs-open-error btn)
-       :on-lsp-files-open           (treemacs-next-line 1)
-       :on-lsp-files-closed         (treemacs--do-expand-lsp-files btn)
-       :on-lsp-projects-open        (treemacs-next-line 1)
-       :on-lsp-projects-closed      (treemacs--do-expand-lsp-projects btn)
-       :on-lsp-symbol-open          (treemacs-next-line 1)
-       :on-lsp-symbol-closed        (+custom/treemacs/expand-or-goto-lsp-symbol btn)
-       :on-lsp-treemacs-deps-open   (treemacs-next-line 1)
-       :on-lsp-treemacs-deps-closed (treemacs--do-expand-lsp-treemacs-deps btn)))
-
-    (defun +custom/treemacs/root-up (&rest _)
-      (interactive "P")
-      (treemacs-root-up)
-      (when-let* ((btn (treemacs-current-button))
-                  (_ (treemacs-is-node-collapsed? btn)))
-        (treemacs--expand-root-node btn)))
-
-    (defun +custom/treemacs/select-down (&optional arg)
-      (interactive "P")
-      (treemacs-do-for-button-state
-       :on-root-node-open   (+custom--noop)
-       :on-root-node-closed (treemacs--expand-root-node btn)
-       :on-dir-node-open    (+custom--noop)
-       :on-dir-node-closed  (treemacs--expand-dir-node btn :recursive arg)
-       :on-file-node-open   (+custom--noop)
-       :on-file-node-closed (treemacs--expand-file-node btn)
-       :on-tag-node-open    (+custom--noop)
-       :on-tag-node-closed  (treemacs--expand-tag-node btn)
-       :on-tag-node-leaf    (+custom--noop))
-      (when-let* ((btn (treemacs-current-button))
-                  (_ (treemacs-collect-child-nodes btn)))
-        (treemacs-next-line 1)))
-
-    (defun +custom/treemacs/select-up (&rest _)
-      (interactive "P")
-      (treemacs-do-for-button-state
-       :on-root-node-open   (+custom/treemacs/root-up)
-       :on-root-node-closed (+custom/treemacs/root-up)
-       :on-dir-node-open    (treemacs-goto-parent-node)
-       :on-dir-node-closed  (treemacs-goto-parent-node)
-       :on-file-node-open   (treemacs-goto-parent-node)
-       :on-file-node-closed (treemacs-goto-parent-node)
-       :on-tag-node-open    (treemacs-goto-parent-node)
-       :on-tag-node-closed  (treemacs-goto-parent-node)
-       :on-tag-node-leaf    (treemacs-goto-parent-node)))
-
-    (setq treemacs-RET-actions-config
-          '((root-node-open   . +custom/treemacs/expand-or-down)
-            (root-node-closed . +custom/treemacs/expand-or-down)
-            (dir-node-open    . +custom/treemacs/expand-or-down)
-            (dir-node-closed  . +custom/treemacs/expand-or-down)
-            (file-node-open   . +custom/treemacs/expand-or-down)
-            (file-node-closed . +custom/treemacs/expand-or-down)
-            (tag-node-open    . +custom/treemacs/expand-or-down)
-            (tag-node-closed  . +custom/treemacs/expand-or-down)
-            (tag-node-leaf    . +custom/treemacs/expand-or-down))
-          treemacs-TAB-actions-config
-          '((root-node-open   . treemacs-toggle-node)
-            (root-node-closed . treemacs-toggle-node)
-            (dir-node-open    . treemacs-toggle-node)
-            (dir-node-closed  . treemacs-toggle-node)
-            (file-node-open   . treemacs-toggle-node)
-            (file-node-closed . treemacs-toggle-node)
-            (tag-node-open    . treemacs-toggle-node)
-            (tag-node-closed  . treemacs-toggle-node)
-            (tag-node-leaf    . +custom--treemacs-no-actions))
-          treemacs-recenter-after-file-follow 'always
-          treemacs-recenter-after-tag-follow  'always
-          treemacs-show-cursor t)
-
-    (evil-define-key 'treemacs treemacs-mode-map
-      (kbd "K")  '+custom/treemacs/select-up
-      (kbd "L")  'treemacs-next-neighbour
-      (kbd "gr") 'treemacs-refresh
-      (kbd "h")  '+custom/treemacs/collapse-or-up
-      (kbd "l")  '+custom/treemacs/expand-or-down)
-    (define-key evil-treemacs-state-map (kbd "H") 'treemacs-previous-neighbour)
-    (define-key treemacs-mode-map (kbd "J") '+custom/treemacs/select-down)
-    (define-key treemacs-mode-map (kbd "R") 'treemacs-root-down)
-    (define-key treemacs-mode-map (kbd "r") 'treemacs-rename))
+  (load! "+evil-treemacs")
 
   ;; Treemacs + Doom Themes
   (after! (treemacs doom-themes)
@@ -380,58 +141,7 @@
 ;; editor/evil
 
 (when (featurep! :editor evil)
-  (setq +evil-want-o/O-to-continue-comments nil)
-
-  ;; use C-h as backspace everywhere
-  (map! :g "C-h" nil
-        :ie "C-h" #'backward-delete-char-untabify
-        :map minibuffer-local-map
-        :g "C-h" #'doom/silent-backward-delete-char)
-  (after! company
-    (map! :map company-active-map
-          :g "C-h" nil))
-  (after! evil
-    (map! :map evil-ex-completion-map
-          :g "C-h" #'evil-ex-delete-backward-char))
-  (after! evil-org
-    (map! :map evil-org-mode-map
-          :i "C-h" (general-predicate-dispatch 'evil-org-delete-backward-char
-                     (org-at-table-p) 'org-table-previous-field)
-          :e "C-h" (general-predicate-dispatch 'backward-delete-char-untabify
-                     (org-at-table-p) 'org-table-previous-field)))
-  (after! ivy
-    (map! :map ivy-minibuffer-map
-          :g "C-h" #'ivy-backward-delete-char))
-  (after! vterm
-    (map! :map vterm-mode-map
-          :ie "C-h" 'vterm--self-insert))
-
-  ;; retain visual-mode on selection shift
-  (after! evil
-    (evil-set-command-property 'evil-shift-left  :keep-visual t)
-    (evil-set-command-property 'evil-shift-right :keep-visual t))
-
-  (after! evil-mc
-    (map!
-     :ni "C-M-j" 'evil-mc-make-cursor-move-next-line
-     :ni "C-M-k" 'evil-mc-make-cursor-move-prev-line
-     :map evil-mc-key-map))
-
-  (after! evil-snipe
-    (setq evil-snipe-repeat-keys t
-          evil-snipe-repeat-scope 'line))
-
-  (after! evil-surround
-    (map! :map evil-surround-mode-map
-          :v "s" 'evil-surround-region))
-
-  ;; expand-region
-  (map! :nv "C-=" #'er/contract-region
-        :nv "C-+" #'er/expand-region)
-
-  ;; xwidget
-  (add-transient-hook! 'xwidget-webkit-mode-hook
-    (+evil-collection-init 'xwidget)))
+  (load! "+evil"))
 
 
 ;; editor/file-templates
@@ -498,43 +208,6 @@
     (remove-hook 'server-switch-hook 'magit-commit-diff)))
 
 
-;; tools/lsp
-
-(when (featurep! :tools lsp)
-  (setq +lsp-company-backend '(company-yasnippet :separate company-lsp)
-        gc-cons-threshold (* 1024 1024 1024)
-        read-process-output-max (* 1024 1024))
-
-  (after! lsp-mode
-    (setq-hook! 'lsp-mode-hook
-      company-idle-delay 0.0
-      company-minimum-prefix-length 1)
-
-    ;; prevent lsp from explicitly selecting the lsp checker
-    (defun +custom/lsp/lsp-flycheck-enable-a (&rest _)
-      (flycheck-mode 1)
-      (when lsp-flycheck-live-reporting
-        (setq-local flycheck-check-syntax-automatically nil))
-      ;; (setq-local flycheck-checker 'lsp)
-      (lsp-flycheck-add-mode major-mode)
-      (add-to-list 'flycheck-checkers 'lsp)
-      (add-hook 'lsp-after-diagnostics-hook #'lsp--flycheck-report nil t))
-    (advice-add #'lsp-flycheck-enable
-                :override #'+custom/lsp/lsp-flycheck-enable-a))
-
-  (after! lsp-ui
-    (setq lsp-ui-sideline-show-diagnostics nil))
-
-  ;; LSP + Doom Themes
-  (defun +custom--pick-doom-color (key)
-    (nth (if (display-graphic-p) 0 1) (alist-get key doom-themes--colors)))
-  (after! (lsp-ui doom-themes)
-    (setq lsp-ui-imenu-colors `(,(+custom--pick-doom-color 'dark-blue)
-                                ,(+custom--pick-doom-color 'cyan)))
-    (set-face-foreground 'lsp-ui-sideline-code-action
-                         (+custom--pick-doom-color 'yellow))))
-
-
 ;; tools/docker
 
 (when (featurep! :tools docker)
@@ -544,11 +217,23 @@
 
 ;; tools/lookup
 
-(when (and (featurep! :tools lookup)
-           (display-graphic-p) (fboundp 'xwidget-webkit-browse-url))
-  ;; xwidget
-  (after! dash-docs
-    (setq dash-docs-browser-func #'xwidget-webkit-browse-url)))
+(when (featurep! :tools lookup)
+  (load! "+lookup"))
+
+
+;; tools/lsp
+
+(when (featurep! :tools lsp)
+  (load! "+lsp")
+
+  ;; LSP + Doom Themes
+  (defun +custom--pick-doom-color (key)
+    (nth (if (display-graphic-p) 0 1) (alist-get key doom-themes--colors)))
+  (after! (lsp-ui doom-themes)
+    (setq lsp-ui-imenu-colors `(,(+custom--pick-doom-color 'dark-blue)
+                                ,(+custom--pick-doom-color 'cyan)))
+    (set-face-foreground 'lsp-ui-sideline-code-action
+                         (+custom--pick-doom-color 'yellow))))
 
 
 ;; tools/magit
@@ -611,61 +296,8 @@
 
 ;; lang/org
 
-(after! org
-  (set-company-backend! 'org-mode
-    'company-capf
-    'company-dabbrev
-    'company-files
-    'company-yasnippet)
-  (defun +custom/org/jupyter-org-interaction-mode-h ()
-    (require 'ob-jupyter)
-    (jupyter-org-interaction-mode 1))
-  (add-hook 'org-mode-hook #'+custom/org/jupyter-org-interaction-mode-h)
-
-  (defun +custom/org-lookup-documentation ()
-    (interactive)
-    (when-let* ((info (org-babel-get-src-block-info)))
-      (when (and (string-prefix-p "jupyter-" (car info))
-                 (symbolp (call-interactively #'jupyter-inspect-at-point)))
-        (pop-to-buffer (help-buffer))
-        t)))
-  (set-lookup-handlers! 'org-mode
-    :documentation #'+custom/org-lookup-documentation)
-
-  (setq-hook! 'org-mode-hook
-    company-idle-delay 0.2
-    company-minimum-prefix-length 1)
-
-  (after! org
-    (defun +custom--org-dwim-at-point-a ()
-      (when (string-prefix-p "jupyter-" (car (org-babel-get-src-block-info)))
-        (jupyter-org-execute-and-next-block)
-        t))
-    (advice-add #'+org/dwim-at-point
-                :before-until #'+custom--org-dwim-at-point-a))
-
-  (after! jupyter
-    (delq :text/html jupyter-org-mime-types))
-
-  (after! company-box
-    (defconst +custom--company-box-icons-jupyter-alist
-      '(("class"     . Class)
-        ("function"  . Function)
-        ("instance"  . Variable)
-        ("keyword"   . Keyword)
-        ("module"    . Module)
-        ("statement" . Variable)
-        ("param"     . Property)
-        ("path"      . File)))
-
-    (defun +custom--company-box-icons-jupyter (candidate)
-      (when (and (eq major-mode 'org-mode)
-                 (string-equal (car (org-babel-get-src-block-info))
-                               "jupyter-python"))
-        (alist-get (string-trim (get-text-property 0 'annot candidate))
-                   +custom--company-box-icons-jupyter-alist
-                   nil nil #'string-equal)))
-    (push #'+custom--company-box-icons-jupyter company-box-icons-functions)))
+(when (featurep! :lang org +jupyter)
+  (load! "+org-jupyter"))
 
 
 ;; lang/python
