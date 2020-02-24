@@ -107,7 +107,38 @@
 
 (when (featurep! :ui popup)
   (setq +popup-default-alist '((window-height . 30)
-                               (reusable-frames . 'visible))))
+                               (reusable-frames . 'visible)))
+
+  ;; copied from @fuxialexander's Doom Emacs config
+  (after! xwidget
+    (defun +custom/xwidget-webkit-goto-url-a (url)
+      (if (xwidget-webkit-current-session)
+          (progn
+            (xwidget-webkit-goto-uri (xwidget-webkit-current-session) url)
+            (display-buffer xwidget-webkit-last-session-buffer))
+        (xwidget-webkit-new-session url)))
+    (advice-add #'xwidget-webkit-goto-url
+                :override #'+custom/xwidget-webkit-goto-url-a)
+    (defun +custom/xwidget-webkit-new-session-a (url)
+      (let* ((bufname (generate-new-buffer-name "xwidget-webkit"))
+             xw)
+        (setq xwidget-webkit-last-session-buffer (get-buffer-create bufname)
+              xwidget-webkit-created-window (display-buffer
+                                             xwidget-webkit-last-session-buffer))
+        (with-selected-window xwidget-webkit-created-window
+          (insert url)
+          (put-text-property 1 (+ 1 (length url)) 'invisible t)
+          (setq xw (xwidget-insert 1 'webkit bufname
+                                   (xwidget-window-inside-pixel-width (selected-window))
+                                   (xwidget-window-inside-pixel-height (selected-window))))
+          (xwidget-put xw 'callback #'xwidget-webkit-callback)
+          (xwidget-webkit-mode)
+          (xwidget-webkit-goto-uri (xwidget-webkit-last-session) url))))
+    (advice-add #'xwidget-webkit-new-session
+                :override #'+custom/xwidget-webkit-new-session-a))
+
+  (set-popup-rule! "^\\*xwidget"
+    :vslot -11 :size 0.35 :select nil))
 
 
 ;; ui/tabs
@@ -134,6 +165,7 @@
                                 org-beamer-mode
                                 org-indent-mode
                                 org-src-mode)) '("Org"))
+            ((eq major-mode 'xwidget-webkit-mode) '("Xwidgets"))
             (t (centaur-tabs-projectile-buffer-groups))))
 
     ;; list only workspace buffers
@@ -389,7 +421,11 @@
 
   ;; expand-region
   (map! :nv "C-=" #'er/contract-region
-        :nv "C-+" #'er/expand-region))
+        :nv "C-+" #'er/expand-region)
+
+  ;; xwidget
+  (add-transient-hook! 'xwidget-webkit-mode-hook
+    (+evil-collection-init 'xwidget)))
 
 
 ;; editor/file-templates
@@ -498,6 +534,15 @@
 (when (featurep! :tools docker)
   (after! docker-tramp
     (setq docker-tramp-use-names t)))
+
+
+;; tools/lookup
+
+(when (and (featurep! :tools lookup)
+           (display-graphic-p) (fboundp 'xwidget-webkit-browse-url))
+  ;; xwidget
+  (after! dash-docs
+    (setq dash-docs-browser-func #'xwidget-webkit-browse-url)))
 
 
 ;; tools/magit
