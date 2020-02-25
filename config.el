@@ -296,6 +296,8 @@
 
 ;; lang/org
 
+(when (featurep! :lang org)
+  (load! "+org"))
 (when (featurep! :lang org +jupyter)
   (load! "+org-jupyter"))
 
