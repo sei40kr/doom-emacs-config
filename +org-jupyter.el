@@ -55,8 +55,9 @@
     (when (and (eq major-mode 'org-mode)
                (string-equal (+custom/org-jupyter/org-babel-get-src-block-lang)
                              "jupyter-python"))
-      (alist-get (string-trim (get-text-property 0 'annot candidate))
-                 +custom-org-jupyter--company-box-icons-alist
-                 nil nil #'string-equal)))
+      (when-let* ((type (get-text-property 0 'annot candidate))
+                  (type (string-trim type)))
+        (alist-get type +custom-org-jupyter--company-box-icons-alist
+                   nil nil #'string-equal))))
   (push #'+custom/org-jupyter/company-box-icons-jupyter
         company-box-icons-functions))
