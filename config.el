@@ -224,7 +224,16 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (load! "+lsp")
+  (setq +lsp-company-backend 'company-capf
+        gc-cons-threshold (* 1024 1024 1024))
+
+  (after! lsp-mode
+    (setq-hook! 'lsp-mode-hook
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1))
+
+  (after! lsp-ui
+    (setq lsp-ui-sideline-show-diagnostics nil))
 
   ;; LSP + Doom Themes
   (defun +custom--pick-doom-color (key)
