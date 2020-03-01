@@ -1,0 +1,8 @@
+#+TITLE: doom.d
+
+My Doom Emacs configurations.
+
+** References
+
+- [[https://github.com/fuxialexander/doom-emacs-private-xfu][@fuxialexander's doom-emacs-private-xfu]]
+- [[https://github.com/chenyanming/spacemacs_module_for_doom/][@chenyanming's spacemacs_module_for_doom]]
