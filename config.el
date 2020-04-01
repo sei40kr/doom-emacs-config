@@ -191,6 +191,13 @@
       (protobuf-mode ".proto"))))
 
 
+;; editor/multiple-cursors
+
+(when (featurep! :editor multiple-cursors)
+  (map! :nv "C-n" #'evil-mc-make-and-goto-next-match
+        :nv "C-p" #'evil-mc-make-and-goto-prev-match))
+
+
 ;; emacs/vc
 
 (when (featurep! :emacs vc)
