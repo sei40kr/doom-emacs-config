@@ -339,6 +339,8 @@
 
 ;; lang/rust
 
+(when (featurep! :lang rust +lsp)
+  (setq rustic-lsp-server 'rust-analyzer))
 (when (and (featurep! :lang rust)
            (featurep! :checkers syntax))
   (when (featurep! :tools lsp)
