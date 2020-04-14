@@ -25,6 +25,7 @@
 (package! company-emoji :pin "fc45b56f3e")
 (package! expand-region :pin "0fa7c2d349")
 (package! vagrant-tramp :pin "f67925928d")
+(package! vimrc-mode :pin "13bc150a87")
 
 ;; To install a package directly from a particular repo, you'll need to specify
 ;; a `:recipe'. You'll find documentation on what `:recipe' accepts here:

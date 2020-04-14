@@ -376,6 +376,12 @@
     (setq emmet-self-closing-tag-style " /")))
 
 
+;; vimrc-mode
+
+(after! vimrc-mode
+  (add-hook 'vimrc-mode-local-vars-hook #'lsp!))
+
+
 ;; config/default
 
 (when (and (featurep! :config default)
