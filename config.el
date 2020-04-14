@@ -272,6 +272,7 @@
 ;; lang/java
 
 (when (featurep! :lang java)
+  ;; Java
   (after! lsp-java
     (setq lsp-java-maven-download-sources t
           lsp-java-autobuild-enabled nil
@@ -279,7 +280,10 @@
           lsp-java-format-settings-url "http://google.github.io/styleguide/eclipse-java-google-style.xml"
           lsp-java-code-generation-use-blocks t
           lsp-java-code-generation-generate-comments t
-          lsp-java-code-generation-to-string-code-style "STRING_BUILDER")))
+          lsp-java-code-generation-to-string-code-style "STRING_BUILDER"))
+
+  ;; Groovy
+  (add-hook 'groovy-mode-local-vars-hook #'lsp!))
 
 
 ;; lang/javascript
