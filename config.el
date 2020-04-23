@@ -202,7 +202,13 @@
 
 (when (featurep! :emacs vc)
   (after! magit
-    (setq magit-refresh-status-buffer nil
+    (defun +vc--magit-clone-default-directory (url-or-repo)
+      (and (string-match "\\([^/:]+\\)/\\(.+\\)$" url-or-repo)
+           (concat "~/develop/workspace/" (match-string 1 url-or-repo))))
+
+    (setq magit-clone-default-directory #'+vc--magit-clone-default-directory
+          magit-clone-set-remote\.pushDefault t
+          magit-refresh-status-buffer nil
           magit-repolist-columns '(("Name" 25 magit-repolist-column-ident nil)
                                    ("Version" 25 magit-repolist-column-version nil)
                                    ("Path" 99 magit-repolist-column-path nil))
