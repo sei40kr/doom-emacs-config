@@ -204,7 +204,7 @@
   (after! magit
     (defun +vc--magit-clone-default-directory (url-or-repo)
       (and (string-match "\\([^/:]+\\)/\\(.+\\)$" url-or-repo)
-           (concat "~/develop/workspace/" (match-string 1 url-or-repo))))
+           (format "~/develop/workspace/%s/" (match-string 1 url-or-repo))))
 
     (setq magit-clone-default-directory #'+vc--magit-clone-default-directory
           magit-clone-set-remote\.pushDefault t
