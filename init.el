@@ -127,6 +127,7 @@
        ;;idris               ;
        (java +lsp)           ; the poster child for carpal tunnel syndrome
        (javascript +lsp)     ; all(hope(abandon(ye(who(enter(here))))))
+       (json +lsp)           ; At least it ain't XML
        ;;julia               ; a better, faster MATLAB
        (kotlin +lsp)         ; a better, slicker Java(Script)
        ;;latex               ; writing papers in Emacs has never been so fun
@@ -173,6 +174,7 @@
         +css
         +html
         +lsp)
+       (yaml +lsp)           ; JSON, but readable
 
        :email
        ;;(mu4e +gmail)
