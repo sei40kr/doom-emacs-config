@@ -289,7 +289,8 @@
           lsp-java-code-generation-to-string-code-style "STRING_BUILDER"))
 
   ;; Groovy
-  (setq lsp-groovy-server-file (concat doom-private-dir "etc/lsp-groovy/groovy-language-server-all.jar"))
+  (setq lsp-groovy-server-file (concat doom-private-dir
+                                       "etc/lsp/lsp-groovy/groovy-language-server-all.jar"))
   (add-hook 'groovy-mode-local-vars-hook #'lsp!))
 
 
