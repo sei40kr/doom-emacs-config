@@ -277,7 +277,7 @@
 
 ;; lang/java
 
-(when (featurep! :lang java)
+(when (featurep! :lang java +lsp)
   ;; Java
   (after! lsp-java
     (setq lsp-java-maven-download-sources t
