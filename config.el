@@ -287,7 +287,14 @@
           lsp-java-format-settings-url "http://google.github.io/styleguide/eclipse-java-google-style.xml"
           lsp-java-code-generation-use-blocks t
           lsp-java-code-generation-generate-comments t
-          lsp-java-code-generation-to-string-code-style "STRING_BUILDER"))
+          lsp-java-code-generation-to-string-code-style "STRING_BUILDER")
+
+  ;; Lombok support
+  ;; See https://github.com/redhat-developer/vscode-java/wiki/Lombok-support
+    (push (concat "-javaagent:"
+                  (expand-file-name (concat doom-private-dir
+                                            "etc/lombok/lombok-1.18.12.jar")))
+          lsp-java-vmargs))
 
   ;; Enforce Google Java Code Style
   ;; See https://google.github.io/styleguide/javaguide.html
