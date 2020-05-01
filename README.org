@@ -6,3 +6,8 @@ My Doom Emacs configurations.
 
 - [[https://github.com/fuxialexander/doom-emacs-private-xfu][@fuxialexander's doom-emacs-private-xfu]]
 - [[https://github.com/chenyanming/spacemacs_module_for_doom/][@chenyanming's spacemacs_module_for_doom]]
+
+** Licenses
+
+- [[https://projectlombok.org][Project Lombok]] (under ~/etc/lombok~) - MIT
+- [[https://github.com/prominic/groovy-language-server][Groovy Language Server]] (under ~/etc/lsp/lsp-groovy~) - Apache-2.0
