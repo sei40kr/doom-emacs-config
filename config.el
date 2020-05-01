@@ -278,6 +278,7 @@
 ;; lang/java
 
 (when (featurep! :lang java +lsp)
+  ;;
   ;; Java
   (after! lsp-java
     (setq lsp-java-maven-download-sources t
@@ -288,6 +289,16 @@
           lsp-java-code-generation-generate-comments t
           lsp-java-code-generation-to-string-code-style "STRING_BUILDER"))
 
+  ;; Enforce Google Java Code Style
+  ;; See https://google.github.io/styleguide/javaguide.html
+  (set-formatter! 'google-java-format
+    '("google-java-format" "-")
+    :modes 'java-mode)
+  (setq-hook! 'java-mode-hook
+    tab-width 2
+    fill-column 100)
+
+  ;;
   ;; Groovy
   (setq lsp-groovy-server-file (concat doom-private-dir
                                        "etc/lsp/lsp-groovy/groovy-language-server-all.jar"))
