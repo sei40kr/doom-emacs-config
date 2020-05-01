@@ -9,6 +9,7 @@
                                   magit-file-mode
                                   magit-log-mode
                                   magit-process-mode
+                                  magit-revision-mode
                                   magit-status-mode))) '("Emacs"))
           ((memq major-mode '(help-mode helpful-mode)) '("Help"))
           ((memq major-mode '(org-mode
