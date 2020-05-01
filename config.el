@@ -59,6 +59,7 @@
     (display-fill-column-indicator-mode 1)))
 
 
+;;
 ;; core
 
 ;; list magit repos as projectile projects
@@ -81,6 +82,7 @@
             :before #'+projectile--load-known-projects-a)
 
 
+;;
 ;; completion/company
 
 (when (featurep! :completion company)
@@ -94,6 +96,7 @@
     (setq company-box-doc-enable nil)))
 
 
+;;
 ;; ui/doom
 
 (when (featurep! :ui doom)
@@ -101,6 +104,7 @@
     (setq doom-modeline-buffer-file-name-style #'truncate-upto-root)))
 
 
+;;
 ;; ui/popup
 
 (when (featurep! :ui popup)
@@ -108,12 +112,14 @@
                                (reusable-frames . 'visible))))
 
 
+;;
 ;; ui/tabs
 
 (when (featurep! :ui tabs)
   (load! "+tabs"))
 
 
+;;
 ;; ui/treemacs
 
 (when (featurep! :ui treemacs)
@@ -127,6 +133,7 @@
      '(treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0)))))))
 
 
+;;
 ;; ui/workspaces
 
 (when (featurep! :ui workspaces)
@@ -138,12 +145,14 @@
           persp-remove-buffers-from-nil-persp-behaviour nil)))
 
 
+;;
 ;; editor/evil
 
 (when (featurep! :editor evil)
   (load! "+evil"))
 
 
+;;
 ;; editor/file-templates
 
 (when (featurep! :editor file-templates)
@@ -170,6 +179,8 @@
    '("\\.zsh$"               :trigger "__zsh")
    '(sh-mode)))
 
+
+;;
 ;; editor/format
 
 (when (featurep! :editor format)
@@ -191,6 +202,7 @@
       (protobuf-mode ".proto"))))
 
 
+;;
 ;; editor/multiple-cursors
 
 (when (featurep! :editor multiple-cursors)
@@ -198,6 +210,7 @@
         :nv "C-p" #'evil-mc-make-and-goto-prev-match))
 
 
+;;
 ;; emacs/vc
 
 (when (featurep! :emacs vc)
@@ -221,6 +234,7 @@
     (remove-hook 'server-switch-hook 'magit-commit-diff)))
 
 
+;;
 ;; tools/docker
 
 (when (featurep! :tools docker)
@@ -228,12 +242,14 @@
     (setq docker-tramp-use-names t)))
 
 
+;;
 ;; tools/lookup
 
 (when (featurep! :tools lookup)
   (load! "+lookup"))
 
 
+;;
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
@@ -258,6 +274,7 @@
                          (+custom--pick-doom-color 'yellow))))
 
 
+;;
 ;; tools/magit
 
 (when (featurep! :tools magit)
@@ -268,6 +285,7 @@
           :g "<escape>" 'transient-quit-seq)))
 
 
+;;
 ;; lang/go
 
 (when (and (featurep! :lang go)
@@ -275,6 +293,7 @@
   (set-next-checker! 'go-mode 'lsp 'go-gofmt))
 
 
+;;
 ;; lang/java
 
 ;; Enforce Google Java Code Style
@@ -311,6 +330,7 @@
   (add-hook 'groovy-mode-local-vars-hook #'lsp!))
 
 
+;;
 ;; lang/javascript
 
 (when (and (featurep! :lang javascript)
@@ -324,6 +344,7 @@
     (set-next-checker! 'rjsx-mode 'lsp 'javascript-eslint)))
 
 
+;;
 ;; lang/kotlin
 
 (when (featurep! :lang kotlin +lsp)
@@ -331,6 +352,7 @@
                                                      "etc/lsp/lsp-kotlin/bin/kotlin-language-server")))
 
 
+;;
 ;; lang/markdown
 
 (when (featurep! :lang markdown)
@@ -346,6 +368,7 @@
             grip-github-password (cadr credential)))))
 
 
+;;
 ;; lang/org
 
 (when (featurep! :lang org)
@@ -354,6 +377,7 @@
   (load! "+org-jupyter"))
 
 
+;;
 ;; lang/python
 
 (when (and (featurep! :lang python +lsp)
@@ -361,6 +385,7 @@
   (set-next-checker! 'python-mode 'lsp 'python-flake8))
 
 
+;;
 ;; lang/ruby
 
 (when (and (featurep! :lang ruby +lsp)
@@ -369,6 +394,7 @@
   (set-next-checker! 'enh-ruby-mode 'lsp 'ruby-rubocop))
 
 
+;;
 ;; lang/rust
 
 (when (featurep! :lang rust +lsp)
@@ -394,6 +420,7 @@
       '(company-yasnippet :separate company-solidity))))
 
 
+;;
 ;; TypeScript
 
 (when (and (featurep! :lang javascript)
@@ -401,6 +428,7 @@
   (set-next-checker! 'typescript-mode 'lsp 'javascript-eslint))
 
 
+;;
 ;; lang/web
 
 (when (featurep! :lang web)
@@ -408,12 +436,14 @@
     (setq emmet-self-closing-tag-style " /")))
 
 
+;;
 ;; vimrc-mode
 
 (after! vimrc-mode
   (add-hook 'vimrc-mode-local-vars-hook #'lsp!))
 
 
+;;
 ;; config/default
 
 (when (and (featurep! :config default)
