@@ -26,8 +26,7 @@
           (t (centaur-tabs-projectile-buffer-groups))))
 
   (setq centaur-tabs-buffer-list-function #'+workspace-buffer-list
-        centaur-tabs-buffer-groups-function
-        #'+custom/tabs/centaur-tabs-buffer-groups
+        centaur-tabs-buffer-groups-function #'+custom/tabs/centaur-tabs-buffer-groups
         centaur-tabs-close-button "×")
 
   (map! :map centaur-tabs-mode-map
