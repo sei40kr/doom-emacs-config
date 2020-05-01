@@ -324,6 +324,13 @@
     (set-next-checker! 'rjsx-mode 'lsp 'javascript-eslint)))
 
 
+;; lang/kotlin
+
+(when (featurep! :lang kotlin +lsp)
+  (setq lsp-clients-kotlin-server-executable (concat doom-private-dir
+                                                     "etc/lsp/lsp-kotlin/bin/kotlin-language-server")))
+
+
 ;; lang/markdown
 
 (when (featurep! :lang markdown)
