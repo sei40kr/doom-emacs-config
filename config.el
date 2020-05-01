@@ -277,9 +277,17 @@
 
 ;; lang/java
 
+;; Enforce Google Java Code Style
+;; See https://google.github.io/styleguide/javaguide.html
+(when (featurep! :lang java)
+  (set-formatter! 'google-java-format
+    '("google-java-format" "-")
+    :modes 'java-mode)
+  (setq-hook! 'java-mode-hook
+    tab-width 2
+    fill-column 100))
+
 (when (featurep! :lang java +lsp)
-  ;;
-  ;; Java
   (after! lsp-java
     (setq lsp-java-maven-download-sources t
           lsp-java-autobuild-enabled nil
@@ -295,15 +303,6 @@
                   (expand-file-name (concat doom-private-dir
                                             "etc/lombok/lombok-1.18.12.jar")))
           lsp-java-vmargs))
-
-  ;; Enforce Google Java Code Style
-  ;; See https://google.github.io/styleguide/javaguide.html
-  (set-formatter! 'google-java-format
-    '("google-java-format" "-")
-    :modes 'java-mode)
-  (setq-hook! 'java-mode-hook
-    tab-width 2
-    fill-column 100)
 
   ;;
   ;; Groovy
