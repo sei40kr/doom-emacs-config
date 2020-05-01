@@ -341,7 +341,8 @@
 
   (when (featurep! :lang javascript +lsp)
     (set-next-checker! 'js2-mode  'lsp 'javascript-eslint)
-    (set-next-checker! 'rjsx-mode 'lsp 'javascript-eslint)))
+    (set-next-checker! 'rjsx-mode 'lsp 'javascript-eslint)
+    (set-next-checker! 'typescript-mode 'lsp 'javascript-eslint)))
 
 
 ;;
@@ -418,14 +419,6 @@
   (after! solidity-mode
     (set-company-backend! 'solidity-mode
       '(company-yasnippet :separate company-solidity))))
-
-
-;;
-;; TypeScript
-
-(when (and (featurep! :lang javascript)
-           (featurep! :checkers syntax))
-  (set-next-checker! 'typescript-mode 'lsp 'javascript-eslint))
 
 
 ;;
