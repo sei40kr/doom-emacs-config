@@ -407,3 +407,9 @@
            (fboundp 'evil-mode))
   (map! :leader
         :desc "Jump to character" "j" #'evil-avy-goto-char))
+
+
+;;
+;; Others
+
+(load! "+atcoder-tools")
