@@ -152,16 +152,14 @@
        plantuml              ; diagrams for confusing people more
        ;;purescript          ; javascript, but functional
        (python               ; beautiful is better than ugly
-        +lsp
-        +pyenv)
+        +lsp)
        ;;qt                  ; the 'cutest' gui framework ever
        ;;racket              ; a DSL for DSLs
        rest                  ; Emacs as a REST client
        ;;rst                 ; ReST in peace
        (ruby                 ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
         +lsp
-        +rails
-        +rbenv)
+        +rails)
        (rust +lsp)           ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        (scala +lsp)          ; java, but good
        ;;scheme              ; a fully conniving family of lisps
