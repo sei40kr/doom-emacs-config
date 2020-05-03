@@ -1,2 +1,5 @@
+/doom.d.key
+
+
 /packages/**/*
 !/packages/.gitkeep

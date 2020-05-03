@@ -51,6 +51,7 @@
 
 (setq confirm-nonexistent-file-or-buffer nil
       vc-follow-symlinks t)
+(load! "+secrets")
 
 (global-auto-revert-mode +1)
 
@@ -360,13 +361,7 @@
   (after! markdown-mode
     (setq markdown-header-scaling t)
 
-    (set-company-backend! '(markdown-mode gfm-mode) '(company-emoji)))
-
-  (after! grip-mode
-    (require 'auth-source)
-    (let* ((credential (auth-source-user-and-password "api.github.com")))
-      (setq grip-github-user (car credential)
-            grip-github-password (cadr credential)))))
+    (set-company-backend! '(markdown-mode gfm-mode) '(company-emoji))))
 
 
 ;;
