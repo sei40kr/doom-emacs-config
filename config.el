@@ -395,15 +395,6 @@
 
 (when (featurep! :lang rust +lsp)
   (setq rustic-lsp-server 'rust-analyzer))
-(when (and (featurep! :lang rust)
-           (featurep! :checkers syntax))
-  (when (featurep! :tools lsp)
-    (set-next-checker! 'rustic-mode 'rust 'lsp))
-  (setq-hook! 'rustic-mode-hook
-    flycheck-checker 'rust)
-
-  (after! flycheck
-    (flycheck-add-mode 'rust 'rustic-mode)))
 
 
 ;; lang/solidity
