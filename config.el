@@ -254,7 +254,25 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (load! "+lsp"))
+  (setq +lsp-company-backend 'company-capf
+        gc-cons-threshold (* 1024 1024 1024))
+
+  (after! lsp-mode
+    (setq-hook! 'lsp-mode-hook
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1))
+
+  (after! lsp-ui
+    (setq lsp-ui-sideline-show-diagnostics nil))
+
+  ;; LSP + Doom Themes
+  (defun +custom--pick-doom-color (key)
+    (nth (if (display-graphic-p) 0 1) (alist-get key doom-themes--colors)))
+  (after! (lsp-ui doom-themes)
+    (setq lsp-ui-imenu-colors `(,(+custom--pick-doom-color 'dark-blue)
+                                ,(+custom--pick-doom-color 'cyan)))
+    (set-face-foreground 'lsp-ui-sideline-code-action
+                         (+custom--pick-doom-color 'yellow))))
 
 
 ;;
