@@ -393,9 +393,7 @@
 ;;
 ;; lang/rust
 
-(when (featurep! :lang rust +lsp)
-  (setq rustic-lsp-server 'rust-analyzer))
-
+(load! "+rust")
 
 ;; lang/solidity
 
