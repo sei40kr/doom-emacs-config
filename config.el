@@ -254,8 +254,9 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (setq +lsp-company-backend 'company-capf
-        gc-cons-threshold (* 1024 1024 1024))
+  (setq gc-cons-threshold (* 1024 1024 1024)
+        +lsp-company-backend 'company-capf
+        lsp-signature-render-documentation nil)
 
   (after! lsp-mode
     (setq-hook! 'lsp-mode-hook
