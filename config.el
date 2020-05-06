@@ -54,6 +54,7 @@
 (load! "+secrets")
 
 (global-auto-revert-mode +1)
+(global-subword-mode +1)
 
 (when EMACS27+
   (add-hook! '(text-mode-hook prog-mode-hook)
