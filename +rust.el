@@ -8,7 +8,9 @@
   (defun +my-rust/lsp-mode--lsp--suggest-project-root-a ()
     "Get project root."
     (when (and (eq major-mode 'rustic-mode) (featurep 'projectile))
-      (projectile-root-bottom-up (file-truename default-directory)
-                                 `("Cargo.toml" @,projectile-project-root-files-bottom-up))))
+      (condition-case nil
+          (projectile-root-bottom-up (file-truename default-directory)
+                                     `("Cargo.toml" @,projectile-project-root-files-bottom-up))
+        (error nil))))
   (advice-add 'lsp--suggest-project-root
               :before-until #'+my-rust/lsp-mode--lsp--suggest-project-root-a))
