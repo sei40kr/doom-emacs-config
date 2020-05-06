@@ -245,13 +245,6 @@
 
 
 ;;
-;; tools/lookup
-
-(when (featurep! :tools lookup)
-  (load! "+lookup"))
-
-
-;;
 ;; tools/lsp
 
 (when (featurep! :tools lsp)

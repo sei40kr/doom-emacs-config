@@ -91,7 +91,8 @@
        eval                  ; run code, run (also, repls)
        ;;gist                ; interacting with github gists
        (lookup               ; helps you navigate your code and documentation
-        +docsets)            ; ...or in Dash docsets locally
+        +docsets             ; ...or in Dash docsets locally
+        +xwidget)
        lsp
        ;;macos               ; MacOS-specific commands
        (magit +forge)        ; a git porcelain for Emacs
