@@ -39,6 +39,19 @@
   (map! :map evil-surround-mode-map
         :v "s" 'evil-surround-region))
 
+
+;;
 ;; expand-region
+
+;; Expand region with lsp if server is capable
+(defun +my-evil/expand-region ()
+  "Increase selected region by semantic units."
+  (interactive)
+  (call-interactively
+   (if (and (bound-and-true-p lsp-mode)
+            (lsp-feature? "textDocument/selectionRange"))
+       #'lsp-extend-selection
+     #'er/expand-region)))
+
 (map! :nv "C-=" #'er/contract-region
-      :nv "C-+" #'er/expand-region)
+      :nv "C-+" #'+my-evil/expand-region)
