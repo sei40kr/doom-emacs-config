@@ -399,6 +399,17 @@
 
 
 ;;
+;; lang/sh
+
+(when (featurep! :lang sh)
+  ;; Enforce Google Shell Style Guide
+  ;; See https://google.github.io/styleguide/shellguide.html
+  (set-formatter! 'shfmt
+    '("shfmt" "-i" "2" "-ci")
+    :modes 'sh-mode))
+
+
+;;
 ;; lang/web
 
 (when (featurep! :lang web)
