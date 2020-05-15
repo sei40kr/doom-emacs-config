@@ -293,6 +293,8 @@
 ;; Enforce Google Java Code Style
 ;; See https://google.github.io/styleguide/javaguide.html
 (when (featurep! :lang java)
+  (when (featurep! :lang java +lsp)
+    (setq lsp-java-format-settings-url "http://google.github.io/styleguide/eclipse-java-google-style.xml"))
   (set-formatter! 'google-java-format
     '("google-java-format" "-")
     :modes 'java-mode)
@@ -301,21 +303,19 @@
     fill-column 100))
 
 (when (featurep! :lang java +lsp)
-  (after! lsp-java
-    (setq lsp-java-maven-download-sources t
-          lsp-java-autobuild-enabled nil
-          lsp-java-selection-enabled nil
-          lsp-java-format-settings-url "http://google.github.io/styleguide/eclipse-java-google-style.xml"
-          lsp-java-code-generation-use-blocks t
-          lsp-java-code-generation-generate-comments t
-          lsp-java-code-generation-to-string-code-style "STRING_BUILDER")
+  (setq lsp-java-maven-download-sources t
+        lsp-java-autobuild-enabled nil
+        lsp-java-selection-enabled nil
+        lsp-java-code-generation-use-blocks t
+        lsp-java-code-generation-generate-comments t
+        lsp-java-code-generation-to-string-code-style "STRING_BUILDER")
 
   ;; Lombok support
   ;; See https://github.com/redhat-developer/vscode-java/wiki/Lombok-support
-    (push (concat "-javaagent:"
-                  (expand-file-name (concat doom-private-dir
-                                            "etc/lombok/lombok-1.18.12.jar")))
-          lsp-java-vmargs))
+  (push (concat "-javaagent:"
+                (expand-file-name (concat doom-private-dir
+                                          "etc/lombok/lombok-1.18.12.jar")))
+        lsp-java-vmargs)
 
   ;;
   ;; Groovy
