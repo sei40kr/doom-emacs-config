@@ -312,10 +312,11 @@
 
   ;; Lombok support
   ;; See https://github.com/redhat-developer/vscode-java/wiki/Lombok-support
-  (push (concat "-javaagent:"
-                (expand-file-name (concat doom-private-dir
-                                          "etc/lombok/lombok-1.18.12.jar")))
-        lsp-java-vmargs)
+  (after! lsp-java
+    (push (concat "-javaagent:"
+                  (expand-file-name (concat doom-private-dir
+                                            "etc/lombok/lombok-1.18.12.jar")))
+          lsp-java-vmargs))
 
   ;;
   ;; Groovy
