@@ -396,6 +396,8 @@
 
 (load! "+rust")
 
+
+;;
 ;; lang/solidity
 
 (when (featurep! :lang solidity)
