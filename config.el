@@ -64,15 +64,20 @@
 ;;
 ;; core
 
-;; list magit repos as projectile projects
-(defun +projectile--load-known-projects-a (&rest _)
+;; List repositories under `magit-repository-directories' as projectile
+;; projects.
+(setq magit-repository-directories '(("~/.dotfiles" . 0)
+                                     ("~/.emacs.d" . 0)
+                                     ("~/.doom.d" . 0)
+                                     ("~/develop/workspace" . 2)))
+(defun +core--projectile-load-known-projects-a (&rest _)
   (require 'magit)
-  (setq projectile-known-projects
-        (mapcar #'abbreviate-file-name (magit-list-repos))))
-(after! projectile
-  (setq projectile-git-submodule-command nil))
+  (setq projectile-known-projects (mapcar #'abbreviate-file-name
+                                          (magit-list-repos))))
 (advice-add 'projectile-load-known-projects
-            :override #'+projectile--load-known-projects-a)
+            :override #'+core--projectile-load-known-projects-a)
+(advice-add 'counsel-projectile-switch-project
+            :before #'+core--projectile-load-known-projects-a)
 (dolist (func '(projectile-add-known-projects
                 projectile-cleanup-known-projects
                 projectile-clear-known-projects
@@ -80,8 +85,8 @@
                 projectile-remove-known-project
                 projectile-save-known-projects))
   (advice-add func :override #'(lambda (&rest _))))
-(advice-add 'counsel-projectile-switch-project
-            :before #'+projectile--load-known-projects-a)
+
+(setq projectile-git-submodule-command nil)
 
 
 ;;
@@ -216,22 +221,18 @@
 ;; emacs/vc
 
 (when (featurep! :emacs vc)
-  (after! magit
-    (defun +vc--magit-clone-default-directory (url-or-repo)
-      (and (string-match "\\([^/:]+\\)/\\(.+\\)$" url-or-repo)
-           (format "~/develop/workspace/%s/" (match-string 1 url-or-repo))))
+  (defun +vc--magit-clone-default-directory (url-or-repo)
+    (and (string-match "\\([^/:]+\\)/\\(.+\\)$" url-or-repo)
+         (format "~/develop/workspace/%s/" (match-string 1 url-or-repo))))
+  (setq magit-clone-default-directory #'+vc--magit-clone-default-directory
+        magit-clone-set-remote\.pushDefault t
+        magit-refresh-status-buffer nil
+        magit-repolist-columns '(("Name" 25 magit-repolist-column-ident nil)
+                                 ("Version" 25 magit-repolist-column-version nil)
+                                 ("Path" 99 magit-repolist-column-path nil))
+        magit-revision-insert-related-refs nil)
 
-    (setq magit-clone-default-directory #'+vc--magit-clone-default-directory
-          magit-clone-set-remote\.pushDefault t
-          magit-refresh-status-buffer nil
-          magit-repolist-columns '(("Name" 25 magit-repolist-column-ident nil)
-                                   ("Version" 25 magit-repolist-column-version nil)
-                                   ("Path" 99 magit-repolist-column-path nil))
-          magit-repository-directories '(("~/.dotfiles" . 0)
-                                         ("~/.emacs.d" . 0)
-                                         ("~/.doom.d" . 0)
-                                         ("~/develop/workspace" . 2))
-          magit-revision-insert-related-refs nil)
+  (after! magit
     (remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
     (remove-hook 'server-switch-hook 'magit-commit-diff)))
 
