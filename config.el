@@ -433,12 +433,3 @@
 
 (after! vimrc-mode
   (add-hook 'vimrc-mode-local-vars-hook #'lsp!))
-
-
-;;
-;; config/default
-
-(when (and (featurep! :config default)
-           (fboundp 'evil-mode))
-  (map! :leader
-        :desc "Jump to character" "j" #'evil-avy-goto-char))
