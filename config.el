@@ -195,18 +195,7 @@
                                         c++-mode
                                         go-mode
                                         rustic-mode)
-        +format-preserve-indentation nil)
-
-  (set-formatter! 'clang-format
-    '("clang-format"
-      ("-assume-filename=%s" (or buffer-file-name mode-result ""))
-      ("-style=Google"))
-    :modes
-    '((c-mode ".c")
-      (c++-mode ".cpp")
-      (java-mode ".java")
-      (objc-mode ".m")
-      (protobuf-mode ".proto"))))
+        +format-preserve-indentation nil))
 
 
 ;;
@@ -278,6 +267,23 @@
           :g "<escape>" 'transient-quit-one)
     (map! :map transient-sticky-map
           :g "<escape>" 'transient-quit-seq)))
+
+
+;;
+;; lang/cc
+
+;; Enforce Google C++ Style Guide
+;; See https://google.github.io/styleguide/cppguide.html
+(when (featurep! :lang cc)
+  (set-formatter! 'clang-format
+    '("clang-format"
+      ("-assume-filename=%s" (or buffer-file-name mode-result ""))
+      ("-style=Google"))
+    :modes '((c-mode ".c")
+             (c++-mode ".cpp")))
+  (setq-hook! '(c-mode-hook c++-mode-hook)
+    tab-width 2
+    fill-column 80))
 
 
 ;;
