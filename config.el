@@ -414,7 +414,10 @@
   ;; See https://google.github.io/styleguide/shellguide.html
   (set-formatter! 'shfmt
     '("shfmt" "-i" "2" "-ci")
-    :modes 'sh-mode))
+    :modes 'sh-mode)
+  (setq-hook! 'sh-mode-hook
+    tab-width 2
+    fill-column 80))
 
 
 ;;
