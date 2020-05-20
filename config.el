@@ -253,11 +253,9 @@
     (setq lsp-ui-sideline-show-diagnostics nil))
 
   ;; LSP + Doom Themes
-  (defun +custom--pick-doom-color (key)
-    (nth (if (display-graphic-p) 0 1) (alist-get key doom-themes--colors)))
   (after! (lsp-ui doom-themes)
-    (setq lsp-ui-imenu-colors `(,(+custom--pick-doom-color 'dark-blue)
-                                ,(+custom--pick-doom-color 'cyan)))))
+    (setq lsp-ui-imenu-colors `(,(doom-color 'dark-blue)
+                                ,(doom-color 'cyan)))))
 
 
 ;;
