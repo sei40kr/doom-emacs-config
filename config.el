@@ -144,7 +144,9 @@
 ;; ui/workspaces
 
 (when (featurep! :ui workspaces)
-  (setq +workspaces-switch-project-function '(lambda (_))
+  (setq +workspaces-switch-project-function #'(lambda (project-dir)
+                                                (switch-to-buffer (doom-fallback-buffer))
+                                                (setq default-directory project-dir))
         +workspaces-on-switch-project-behavior t)
 
   (after! persp-mode
