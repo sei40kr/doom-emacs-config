@@ -400,8 +400,10 @@
 ;;
 ;; lang/rust
 
-(load! "+rust")
-
+(when (featurep! :lang rust +lsp)
+  (setq rustic-lsp-server 'rust-analyzer
+        lsp-rust-server 'rust-analyzer
+        lsp-rust-clippy-preference "on"))
 
 ;;
 ;; lang/solidity
