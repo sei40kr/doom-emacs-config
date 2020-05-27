@@ -243,6 +243,13 @@
 
 
 ;;
+;; tools/eval
+
+(when (featurep! :tools eval +overlay)
+  (setq eros-eval-result-prefix "⇒ "))
+
+
+;;
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
