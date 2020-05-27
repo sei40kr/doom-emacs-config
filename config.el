@@ -69,7 +69,7 @@
 (setq magit-repository-directories '(("~/.dotfiles" . 0)
                                      ("~/.emacs.d" . 0)
                                      ("~/.doom.d" . 0)
-                                     ("~/develop/workspace" . 2)))
+                                     ("~/projects" . 2)))
 (defun +core--projectile-load-known-projects-a (&rest _)
   (require 'magit)
   (setq projectile-known-projects (mapcar #'abbreviate-file-name
@@ -220,7 +220,7 @@
 (when (featurep! :emacs vc)
   (defun +vc--magit-clone-default-directory (url-or-repo)
     (and (string-match "\\([^/:]+\\)/\\(.+\\)$" url-or-repo)
-         (format "~/develop/workspace/%s/" (match-string 1 url-or-repo))))
+         (format "~/projects/%s/" (match-string 1 url-or-repo))))
   (setq magit-clone-default-directory #'+vc--magit-clone-default-directory
         magit-clone-set-remote\.pushDefault t
         magit-refresh-status-buffer nil
