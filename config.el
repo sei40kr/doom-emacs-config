@@ -268,7 +268,34 @@
   ;; LSP + Doom Themes
   (after! (lsp-ui doom-themes)
     (setq lsp-ui-imenu-colors `(,(doom-color 'dark-blue)
-                                ,(doom-color 'cyan)))))
+                                ,(doom-color 'cyan))))
+
+  (when (featurep! :lang go +lsp)
+    (setq-hook! 'go-mode-hook
+      flycheck-disabled-checkers '(go-build)))
+  (when (featurep! :lang ess +lsp)
+    (setq-hook! 'ess-r-mode-hook
+      flycheck-disabled-checkers '(r-lintr)))
+  (when (featurep! :lang haskell +lsp)
+    (setq-hook! 'haskell-mode-hook
+      flycheck-disabled-checkers '(haskell-ghc
+                                   haskell-stack-ghc
+                                   haskell-hlint)))
+  (when (featurep! :lang python +lsp)
+    (add-hook! 'python-mode-hook
+               :local
+               (add-to-list 'flycheck-disabled-checkers 'python-pycompile)
+               (when lsp-pyls-plugins-flake8-enabled
+                 (add-to-list 'flycheck-disabled-checkers 'python-flake8))
+               (when lsp-pyls-plugins-pylint-enabled
+                 (add-to-list 'flycheck-disabled-checkers 'python-pylint))))
+  (when (featurep! :lang rust +lsp)
+    (add-hook! 'rustic-mode-hook
+               :local
+               (add-to-list 'flycheck-disabled-checkers 'rust-cargo)
+               (when (string-equal lsp-rust-clippy-preference "on")
+                 (add-to-list 'flycheck-disabled-checkers 'rust-clippy)))))
+
 
 
 ;;
@@ -297,14 +324,6 @@
   (setq-hook! '(c-mode-hook c++-mode-hook)
     tab-width 2
     fill-column 80))
-
-
-;;
-;; lang/go
-
-(when (and (featurep! :lang go)
-           (featurep! :checkers syntax))
-  (set-next-checker! 'go-mode 'lsp 'go-gofmt))
 
 
 ;;
@@ -348,16 +367,10 @@
 ;;
 ;; lang/javascript
 
-(when (and (featurep! :lang javascript)
-           (featurep! :checkers syntax))
+(when (featurep! :lang javascript)
   (after! flycheck
     (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
-    (add-to-list 'flycheck-disabled-checkers 'javascript-standard))
-
-  (when (featurep! :lang javascript +lsp)
-    (set-next-checker! 'js2-mode  'lsp 'javascript-eslint)
-    (set-next-checker! 'rjsx-mode 'lsp 'javascript-eslint)
-    (set-next-checker! 'typescript-mode 'lsp 'javascript-eslint)))
+    (add-to-list 'flycheck-disabled-checkers 'javascript-standard)))
 
 
 ;;
@@ -390,18 +403,14 @@
 ;;
 ;; lang/python
 
-(when (and (featurep! :lang python +lsp)
-           (featurep! :checkers syntax))
-  (set-next-checker! 'python-mode 'lsp 'python-flake8))
-
-
-;;
-;; lang/ruby
-
-(when (and (featurep! :lang ruby +lsp)
-           (featurep! :checkers syntax))
-  (set-next-checker! 'ruby-mode     'lsp 'ruby-rubocop)
-  (set-next-checker! 'enh-ruby-mode 'lsp 'ruby-rubocop))
+(when (featurep! :lang python +lsp)
+  (add-hook! 'python-mode-local-vars-hook
+    (when (bound-and-true-p lsp-mode)
+      (pushnew! flycheck-disabled-checkers 'python-pycompile)
+      (when lsp-pyls-plugins-flake8-enabled
+        (pushnew! flycheck-disabled-checkers 'python-flake8))
+      (when lsp-pyls-plugins-pylint-enabled
+        (pushnew! flycheck-disabled-checkers 'python-pylint)))))
 
 
 ;;
