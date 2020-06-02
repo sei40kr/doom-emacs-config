@@ -70,21 +70,21 @@
                                      ("~/.emacs.d" . 0)
                                      ("~/.doom.d" . 0)
                                      ("~/projects" . 2)))
-(defun +core--projectile-load-known-projects-a (&rest _)
+
+(defadvice! +my--projectile-load-known-projects-a (&rest _)
+  :override #'projectile-load-known-projects
+  :before #'counsel-projectile-switch-project
   (require 'magit)
   (setq projectile-known-projects (mapcar #'abbreviate-file-name
                                           (magit-list-repos))))
-(advice-add 'projectile-load-known-projects
-            :override #'+core--projectile-load-known-projects-a)
-(advice-add 'counsel-projectile-switch-project
-            :before #'+core--projectile-load-known-projects-a)
-(dolist (func '(projectile-add-known-projects
-                projectile-cleanup-known-projects
-                projectile-clear-known-projects
-                projectile-merge-known-projects
-                projectile-remove-known-project
-                projectile-save-known-projects))
-  (advice-add func :override #'(lambda (&rest _))))
+(defadvice! +my--projectile-inhibit-known-projects-update-a (&rest _)
+  :override
+  #'projectile-add-known-projects
+  #'projectile-cleanup-known-projects
+  #'projectile-clear-known-projects
+  #'projectile-merge-known-projects
+  #'projectile-remove-known-project
+  #'projectile-save-known-projects)
 
 (setq projectile-git-submodule-command nil)
 
