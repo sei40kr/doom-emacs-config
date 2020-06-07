@@ -202,6 +202,7 @@
   (setq +format-on-save-enabled-modes '(c-mode
                                         c++-mode
                                         go-mode
+                                        nix-mode
                                         rustic-mode)
         +format-preserve-indentation nil))
 
