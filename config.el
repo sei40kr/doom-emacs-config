@@ -280,9 +280,7 @@
       flycheck-disabled-checkers '(r-lintr)))
   (when (featurep! :lang haskell +lsp)
     (setq-hook! 'haskell-mode-hook
-      flycheck-disabled-checkers '(haskell-ghc
-                                   haskell-stack-ghc
-                                   haskell-hlint)))
+      flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc)))
   (when (featurep! :lang python +lsp)
     (add-hook! 'python-mode-hook
                :local
