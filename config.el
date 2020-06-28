@@ -93,14 +93,17 @@
 ;; completion/company
 
 (when (featurep! :completion company)
+  (setq company-idle-delay nil
+        company-box-doc-enable nil)
+
   (after! company
     (map! :map company-active-map
           "TAB" nil
           [tab] nil
-          [backtab] nil))
+          [backtab] nil)
 
-  (after! company-box
-    (setq company-box-doc-enable nil)))
+    (when (featurep! :editor evil)
+      (add-hook 'evil-normal-state-entry-hook #'company-abort))))
 
 
 ;;
