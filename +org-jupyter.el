@@ -35,10 +35,7 @@
 
   (add-hook! 'org-mode-hook
     (require 'ob-jupyter)
-    (jupyter-org-interaction-mode 1))
-  (setq-hook! 'org-mode-hook
-    company-idle-delay 0.2
-    company-minimum-prefix-length 1))
+    (jupyter-org-interaction-mode 1)))
 
 (after! company-box
   (defconst +custom-org-jupyter--company-box-icons-alist
