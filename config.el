@@ -264,13 +264,13 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (setq gc-cons-threshold (* 1024 1024 1024)
-        +lsp-company-backend 'company-capf
-        lsp-signature-render-documentation nil
-        lsp--fuzzy-score-case-sensitiveness 100)
+  (setq
+   ;; lsp-mode
+   lsp-signature-render-documentation nil
+   lsp--fuzzy-score-case-sensitiveness 100
 
-  (after! lsp-ui
-    (setq lsp-ui-sideline-show-diagnostics nil))
+   ;; lsp-ui
+   lsp-ui-sideline-show-diagnostics nil)
 
   ;; LSP + Doom Themes
   (after! (lsp-ui doom-themes)
