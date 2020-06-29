@@ -255,6 +255,12 @@
 
 
 ;;
+;; tools/lookup
+
+(setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
+
+
+;;
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
