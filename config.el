@@ -139,6 +139,8 @@
 ;; ui/treemacs
 
 (when (featurep! :ui treemacs)
+  (setq treemacs-collapse-dirs 3)
+
   (load! "+evil-treemacs")
 
   ;; Treemacs + Doom Themes
