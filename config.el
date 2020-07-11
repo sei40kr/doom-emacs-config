@@ -18,7 +18,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "JetBrains Mono" :size 13.5))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 13.5)
+      doom-variable-pitch-font (font-spec :family "sans-serif" :size 12.0))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -145,8 +146,6 @@
 
   ;; Treemacs + Doom Themes
   (after! (treemacs doom-themes)
-    (setq doom-themes-treemacs-enable-variable-pitch nil)
-
     (custom-set-faces
      '(treemacs-root-face ((t (:inherit font-lock-string-face :weight bold :height 1.0)))))))
 
