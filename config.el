@@ -94,8 +94,7 @@
 ;; completion/company
 
 (when (featurep! :completion company)
-  (setq company-idle-delay nil
-        company-box-doc-enable nil)
+  (setq company-box-doc-enable nil)
 
   (after! company
     (map! :map company-active-map
@@ -277,6 +276,9 @@
   (after! (lsp-ui doom-themes)
     (setq lsp-ui-imenu-colors `(,(doom-color 'dark-blue)
                                 ,(doom-color 'cyan))))
+
+  (setq-hook! 'lsp-mode-hook
+    company-idle-delay 0.3)
 
   (defun +lsp-init-company-tabnine-h ()
     (if (not (bound-and-true-p company-mode))
