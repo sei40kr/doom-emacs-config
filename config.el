@@ -277,14 +277,11 @@
     (setq lsp-ui-imenu-colors `(,(doom-color 'dark-blue)
                                 ,(doom-color 'cyan))))
 
-  (setq-hook! 'lsp-mode-hook
-    company-idle-delay 0.3)
-
   (defun +lsp-init-company-tabnine-h ()
     (if (not (bound-and-true-p company-mode))
         (add-hook 'company-mode-hook #'+lsp-init-company-tabnine-h 100 t)
       (setq-local company-backends (cons 'company-tabnine company-backends)
-                  company-idle-delay 0
+                  company-idle-delay 0.2
                   company-prescient-sort-length-enable nil)
       (remove-hook 'company-mode-hook #'+lsp-init-company-tabnine-h t)))
   (add-hook! 'lsp-mode-hook :append #'+lsp-init-company-tabnine-h)
