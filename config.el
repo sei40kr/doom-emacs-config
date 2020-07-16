@@ -87,8 +87,6 @@
   #'projectile-remove-known-project
   #'projectile-save-known-projects)
 
-(setq projectile-git-submodule-command nil)
-
 
 ;;
 ;; completion/company
