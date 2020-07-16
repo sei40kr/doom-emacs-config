@@ -20,8 +20,22 @@
 
   (setq centaur-tabs-buffer-list-function #'+workspace-buffer-list
         centaur-tabs-buffer-groups-function #'+my-tabs/centaur-tabs-buffer-groups
-        centaur-tabs-close-button "×")
+        centaur-tabs-close-button "×"
+        centaur-tabs-modified-marker "⚫")
 
   (map! :map centaur-tabs-mode-map
         "M-<left>"  #'centaur-tabs-backward-tab
-        "M-<right>" #'centaur-tabs-forward-tab))
+        "M-<right>" #'centaur-tabs-forward-tab)
+
+  (custom-set-faces!
+    '((centaur-tabs-default
+       centaur-tabs-unselected
+       centaur-tabs-selected
+       centaur-tabs-unselected-modified
+       centaur-tabs-selected-modified
+       centaur-tabs-close-unselected
+       centaur-tabs-close-selected
+       centaur-tabs-close-mouse-face
+       centaur-tabs-modified-marker-selected
+       centaur-tabs-modified-marker-unselected)
+      :inherit variable-pitch)))
