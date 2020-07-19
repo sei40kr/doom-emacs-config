@@ -384,8 +384,7 @@
     (if-let ((eslint_d (executable-find "eslint_d")))
         (setq flycheck-javascript-eslint-executable eslint_d))
 
-    (flycheck-disable-checker 'javascript-jshint)
-    (flycheck-disable-checker 'javascript-standard)))
+    (pushnew! flycheck-disabled-checkers 'javascript-jshint 'javascript-standard)))
 
 
 ;;
