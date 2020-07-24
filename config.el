@@ -65,6 +65,9 @@
 ;;
 ;; core
 
+(after! projectile
+  (setq projectile-indexing-method 'alien))
+
 ;; List repositories under `magit-repository-directories' as projectile
 ;; projects.
 (setq magit-repository-directories '(("~/.dotfiles" . 0)
