@@ -123,8 +123,7 @@
        ;;fsharp              ; ML stands for Microsoft's Language
        (go +lsp)             ; the hipster dialect
        (haskell              ; a language that's lazier than I am
-        +lsp
-        +ghcide)
+        +lsp)
        ;;hy                  ; readability of scheme w/ speed of python
        ;;idris               ;
        (java +lsp)           ; the poster child for carpal tunnel syndrome
@@ -144,7 +143,7 @@
        (org                  ; organize your plain life in plain text
         +dragndrop           ; drag & drop files/images into org buffers
         +gnuplot
-        ;;+hugo              ; use Emacs for hugo blogging
+        +hugo                ; use Emacs for hugo blogging
         +jupyter             ; ipython/jupyter support for babel
         ;;+pandoc            ; export-with-pandoc support
         ;;+pomodoro          ; be fruitful with the tomato technique

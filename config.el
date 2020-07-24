@@ -293,9 +293,6 @@
   (when (featurep! :lang ess +lsp)
     (setq-hook! 'ess-r-mode-hook
       flycheck-disabled-checkers '(r-lintr)))
-  (when (featurep! :lang haskell +lsp)
-    (setq-hook! 'haskell-mode-hook
-      flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc)))
   (when (featurep! :lang python +lsp)
     (add-hook! 'python-mode-hook
                :local
@@ -339,6 +336,18 @@
   (setq-hook! '(c-mode-hook c++-mode-hook)
     tab-width 2
     fill-column 80))
+
+
+;;
+;; lang/haskell
+
+(when (featurep! :lang haskell +lsp)
+  ;; Prefer haskell-language-server over hie
+  (setq lsp-haskell-process-path-hie "haskell-language-server-wrapper"
+        lsp-haskell-process-args-hie '("-d"))
+
+  (after! flycheck
+    (pushnew! flycheck-disabled-checkers 'haskell-ghc 'haskell-stack-ghc)))
 
 
 ;;
