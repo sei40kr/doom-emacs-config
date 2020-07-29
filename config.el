@@ -112,7 +112,6 @@
 
 (when (featurep! :ui doom)
   (after! doom-themes
-    (setq doom-modeline-buffer-file-name-style #'truncate-upto-root)
     (custom-theme-set-faces! 'doom-one
       `(font-lock-comment-face
         :foreground ,(doom-color 'comments)
