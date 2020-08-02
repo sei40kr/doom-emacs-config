@@ -272,19 +272,16 @@
    ;; lsp-ui
    lsp-ui-sideline-show-diagnostics nil)
 
+  ;; Configure TabNine for LSP completion
+  (setq +lsp-company-backends 'company-tabnine)
+  (setq-hook! 'lsp-mode-hook
+    company-idle-delay 0.2
+    company-prescient-sort-length-enable nil)
+
   ;; LSP + Doom Themes
   (after! (lsp-ui doom-themes)
     (setq lsp-ui-imenu-colors `(,(doom-color 'dark-blue)
                                 ,(doom-color 'cyan))))
-
-  (defun +lsp-init-company-tabnine-h ()
-    (if (not (bound-and-true-p company-mode))
-        (add-hook 'company-mode-hook #'+lsp-init-company-tabnine-h 100 t)
-      (setq-local company-backends (cons 'company-tabnine company-backends)
-                  company-idle-delay 0.2
-                  company-prescient-sort-length-enable nil)
-      (remove-hook 'company-mode-hook #'+lsp-init-company-tabnine-h t)))
-  (add-hook! 'lsp-mode-hook :append #'+lsp-init-company-tabnine-h)
 
   (when (featurep! :lang go +lsp)
     (setq-hook! 'go-mode-hook
