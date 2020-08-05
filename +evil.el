@@ -7,9 +7,6 @@
   (evil-set-command-property 'evil-shift-left  :keep-visual t)
   (evil-set-command-property 'evil-shift-right :keep-visual t))
 
-(after! evil-snipe
-  (setq evil-snipe-repeat-keys t))
-
 
 ;;
 ;; expand-region
