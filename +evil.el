@@ -8,8 +8,7 @@
   (evil-set-command-property 'evil-shift-right :keep-visual t))
 
 (after! evil-snipe
-  (setq evil-snipe-repeat-keys t
-        evil-snipe-repeat-scope 'line))
+  (setq evil-snipe-repeat-keys t))
 
 
 ;;
