@@ -75,20 +75,10 @@
                                      ("~/.doom.d" . 0)
                                      ("~/projects" . 2)))
 
-(defadvice! +my--projectile-load-known-projects-a (&rest _)
-  :override #'projectile-load-known-projects
-  :before #'counsel-projectile-switch-project
+(defadvice! +projectile--discover-projects-in-search-path-a (_)
+  :override #'projectile-discover-projects-in-search-path
   (require 'magit)
-  (setq projectile-known-projects (mapcar #'abbreviate-file-name
-                                          (magit-list-repos))))
-(defadvice! +my--projectile-inhibit-known-projects-update-a (&rest _)
-  :override
-  #'projectile-add-known-projects
-  #'projectile-cleanup-known-projects
-  #'projectile-clear-known-projects
-  #'projectile-merge-known-projects
-  #'projectile-remove-known-project
-  #'projectile-save-known-projects)
+  (mapcar #'projectile-add-known-project (magit-list-repos)))
 
 
 ;;
