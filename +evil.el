@@ -11,10 +11,6 @@
   (setq evil-snipe-repeat-keys t
         evil-snipe-repeat-scope 'line))
 
-(after! evil-surround
-  (map! :map evil-surround-mode-map
-        :v "s" 'evil-surround-region))
-
 
 ;;
 ;; expand-region
