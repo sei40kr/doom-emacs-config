@@ -4,39 +4,6 @@
   (when-let* ((info (org-babel-get-src-block-info)))
     (car info)))
 
-(defun +custom/org-jupyter/org-babel-jupyter-src-block-p ()
-  (string-prefix-p "jupyter-" (+custom/org-jupyter/org-babel-get-src-block-lang)))
-
-(after! ob-jupyter
-  (delq :text/html jupyter-org-mime-types)
-
-  (defun +custom/org-jupyter/org-dwim-at-point-a ()
-    (when (+custom/org-jupyter/org-babel-jupyter-src-block-p)
-      (jupyter-org-execute-and-next-block)
-      t))
-  (advice-add #'+org/dwim-at-point
-              :before-until #'+custom/org-jupyter/org-dwim-at-point-a))
-
-(after! org
-  (defun +custom/org-jupyter/org-lookup-documentation ()
-    (interactive)
-    (when (and (+custom/org-jupyter/org-babel-jupyter-src-block-p)
-               (symbolp (call-interactively #'jupyter-inspect-at-point)))
-      (pop-to-buffer (help-buffer))
-      t))
-
-  (set-company-backend! 'org-mode
-    'company-capf
-    'company-dabbrev
-    'company-files
-    'company-yasnippet)
-  (set-lookup-handlers! 'org-mode
-    :documentation #'+custom/org-jupyter/org-lookup-documentation)
-
-  (add-hook! 'org-mode-hook
-    (require 'ob-jupyter)
-    (jupyter-org-interaction-mode 1)))
-
 (after! company-box
   (defconst +custom-org-jupyter--company-box-icons-alist
     '(("class"     . Class)
