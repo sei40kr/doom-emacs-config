@@ -198,7 +198,12 @@
                                         haskell-mode
                                         nix-mode
                                         rustic-mode)
-        +format-preserve-indentation nil))
+        +format-preserve-indentation nil)
+  (setq-hook! '(js2-mode
+                rjsx-mode
+                typescript-mode
+                typescript-tsx-mode)
+    +format-with-lsp nil))
 
 
 ;;
