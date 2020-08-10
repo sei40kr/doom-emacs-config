@@ -377,11 +377,20 @@
 ;; lang/javascript
 
 (when (featurep! :lang javascript)
+  ;; Disable legacy checkers
   (after! flycheck
-    (if-let ((eslint_d (executable-find "eslint_d")))
-        (setq flycheck-javascript-eslint-executable eslint_d))
+    (pushnew! flycheck-disabled-checkers 'javascript-jshint 'javascript-standard))
 
-    (pushnew! flycheck-disabled-checkers 'javascript-jshint 'javascript-standard)))
+  ;; Prefer eslint_d to ESLint
+  ;; See https://github.com/mantoni/eslint_d.js
+  (add-hook! '(js2-mode-hook
+               rjsx-mode-hook
+               typescript-mode-hook
+               typescript-tsx-mode-hook)
+             :append
+             (defun +javascript--flycheck-prefer-eslint_d-h ()
+               (when (executable-find "eslint_d")
+                 (setq-local flycheck-javascript-eslint-executable "eslint_d")))))
 
 
 ;;
