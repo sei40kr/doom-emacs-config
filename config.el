@@ -55,6 +55,8 @@
 
 (setq confirm-nonexistent-file-or-buffer nil
       vc-follow-symlinks t)
+(load! "nix-env.el" doom-private-dir nil)
+(load! "+secrets")
 
 (global-auto-revert-mode +1)
 (global-subword-mode +1)
