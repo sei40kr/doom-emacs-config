@@ -19,9 +19,7 @@
           (t '("Other"))))
 
   (setq centaur-tabs-buffer-list-function #'+workspace-buffer-list
-        centaur-tabs-buffer-groups-function #'+my-tabs/centaur-tabs-buffer-groups
-        centaur-tabs-close-button "×"
-        centaur-tabs-modified-marker "⚫")
+        centaur-tabs-buffer-groups-function #'+my-tabs/centaur-tabs-buffer-groups)
 
   (map! :map centaur-tabs-mode-map
         "M-<left>"  #'centaur-tabs-backward-tab
