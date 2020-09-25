@@ -16,7 +16,7 @@
 
 (doom! :input
        ;;chinese
-       ;;japanese
+       japanese
 
        :completion
        (company +childframe) ; the ultimate code completion backend
