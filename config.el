@@ -332,10 +332,6 @@
 ;; lang/haskell
 
 (when (featurep! :lang haskell +lsp)
-  ;; Prefer haskell-language-server over hie
-  (setq lsp-haskell-process-path-hie "haskell-language-server-wrapper"
-        lsp-haskell-process-args-hie '("-d"))
-
   (after! flycheck
     (pushnew! flycheck-disabled-checkers 'haskell-ghc 'haskell-stack-ghc)))
 
