@@ -60,10 +60,6 @@
 (global-auto-revert-mode +1)
 (global-subword-mode +1)
 
-(when EMACS27+
-  (add-hook! '(prog-mode-hook conf-mode-hook text-mode-hook)
-    (display-fill-column-indicator-mode 1)))
-
 
 ;;
 ;; core
