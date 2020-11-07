@@ -23,7 +23,6 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 (package! company-emoji :pin "fc45b56f3e")
-(package! company-tabnine :pin "e986a4ad0d0e0174b08f1fb94c4f804a98a344e4")
 (package! expand-region :pin "0fa7c2d349")
 (package! vagrant-tramp :pin "f67925928d")
 (package! vimrc-mode :pin "13bc150a87")
