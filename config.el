@@ -258,17 +258,8 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (setq
-   ;; lsp-mode
-   lsp-signature-render-documentation nil
-   lsp--fuzzy-score-case-sensitiveness 100
-
-   ;; lsp-ui
-   lsp-ui-sideline-show-diagnostics nil)
-
-  (setq-hook! 'lsp-mode-hook
-    company-idle-delay 0.2
-    company-prescient-sort-length-enable nil)
+  (setq lsp-signature-render-documentation nil
+        lsp-ui-sideline-show-diagnostics nil)
 
   ;; LSP + Doom Themes
   (after! (lsp-ui doom-themes)
