@@ -266,8 +266,6 @@
    ;; lsp-ui
    lsp-ui-sideline-show-diagnostics nil)
 
-  ;; Configure TabNine for LSP completion
-  (setq +lsp-company-backends 'company-tabnine)
   (setq-hook! 'lsp-mode-hook
     company-idle-delay 0.2
     company-prescient-sort-length-enable nil)
