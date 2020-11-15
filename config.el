@@ -212,6 +212,14 @@
         :nv "C-p" #'evil-mc-make-and-goto-prev-match))
 
 
+;; editor/snippets
+
+(after! yasnippet
+  (competitive-programming-snippets-init)
+  (gitignore-snippets-init)
+  (license-snippets-init))
+
+
 ;;
 ;; emacs/vc
 
