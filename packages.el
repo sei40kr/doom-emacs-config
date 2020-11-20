@@ -41,6 +41,8 @@
 ;(package! this-package
 ;  :recipe (:host github :repo "username/repo"
 ;           :files ("some-file.el" "src/lisp/*.el")))
+(package! atcoder-tools
+  :recipe (:local-repo "repos/atcoder-tools"))
 (package! competitive-programming-snippets
   :recipe (:local-repo "repos/competitive-programming-snippets"
            :files (:defaults "snippets")))

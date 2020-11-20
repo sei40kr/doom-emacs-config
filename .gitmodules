@@ -1,3 +1,6 @@
+[submodule "atcoder-tools"]
+	path = repos/atcoder-tools
+	url = https://github.com/sei40kr/emacs-atcoder-tools
 [submodule "competitive-programming-snippets"]
 	path = repos/competitive-programming-snippets
 	url = https://github.com/sei40kr/competitive-programming-snippets
