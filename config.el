@@ -21,8 +21,9 @@
 (if (eq system-type 'darwin)
     (setq doom-font (font-spec :family "JetBrains Mono" :size 17.0)
           doom-variable-pitch-font (font-spec :family "ヒラギノ角ゴシック W3" :size 15.5))
-  (setq doom-font (font-spec :family "JetBrains Mono" :size 13.5)
-        doom-variable-pitch-font (font-spec :family "sans-serif" :size 12.0)))
+  (setq doom-font (font-spec :family "Operator Mono Medium" :size 14.0)
+        doom-variable-pitch-font (font-spec :family "sans-serif" :size 12.0))
+  (custom-set-faces! '(font-lock-comment-face :family "Operator Mono Medium")))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
