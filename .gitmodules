@@ -1,0 +1,3 @@
+[submodule "gitignore-snippets"]
+	path = repos/gitignore-snippets
+	url = https://github.com/sei40kr/gitignore-snippets

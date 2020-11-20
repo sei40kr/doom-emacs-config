@@ -41,9 +41,8 @@
 ;  :recipe (:host github :repo "username/repo"
 ;           :files ("some-file.el" "src/lisp/*.el")))
 (package! gitignore-snippets
-  :recipe (:host github
-           :repo "sei40kr/gitignore-snippets"
-           :files ("*.el" "snippets")))
+  :recipe (:local-repo "repos/gitignore-snippets"
+           :files (:defaults "snippets")))
 (package! license-snippets
   :recipe (:host github
            :repo "sei40kr/license-snippets"
