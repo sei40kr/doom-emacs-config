@@ -64,20 +64,7 @@
 ;;
 ;; core
 
-(after! projectile
-  (setq projectile-indexing-method 'alien))
-
-;; List repositories under `magit-repository-directories' as projectile
-;; projects.
-(setq magit-repository-directories '(("~/.dotfiles" . 0)
-                                     ("~/.emacs.d" . 0)
-                                     ("~/.doom.d" . 0)
-                                     ("~/projects" . 2)))
-
-(defadvice! +projectile--discover-projects-in-search-path-a (_)
-  :override #'projectile-discover-projects-in-search-path
-  (require 'magit)
-  (mapcar #'projectile-add-known-project (magit-list-repos)))
+(load! "projects")
 
 
 ;;
