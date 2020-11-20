@@ -25,6 +25,7 @@
 (package! company-emoji :pin "fc45b56f3e")
 (package! competitive-programming-snippets :pin "3b43c1aeaa6676d1d3d0c47e78790db9bee150b6")
 (package! expand-region :pin "0fa7c2d349")
+(package! package-lint :pin "05596996286089acc7693b700c7c31780439e39f")
 (package! vagrant-tramp :pin "f67925928d")
 (package! vimrc-mode :pin "13bc150a87")
 
@@ -44,9 +45,8 @@
   :recipe (:local-repo "repos/gitignore-snippets"
            :files (:defaults "snippets")))
 (package! license-snippets
-  :recipe (:host github
-           :repo "sei40kr/license-snippets"
-           :files ("*.el" "snippets")))
+  :recipe (:local-repo "repos/license-snippets"
+           :files (:defaults "snippets")))
 
 ;; If you'd like to disable a package included with Doom, for whatever reason,
 ;; you can do so here with the `:disable' property:
