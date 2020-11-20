@@ -1,3 +1,6 @@
+[submodule "competitive-programming-snippets"]
+	path = repos/competitive-programming-snippets
+	url = https://github.com/sei40kr/competitive-programming-snippets
 [submodule "gitignore-snippets"]
 	path = repos/gitignore-snippets
 	url = https://github.com/sei40kr/gitignore-snippets

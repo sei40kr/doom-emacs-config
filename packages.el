@@ -41,6 +41,9 @@
 ;(package! this-package
 ;  :recipe (:host github :repo "username/repo"
 ;           :files ("some-file.el" "src/lisp/*.el")))
+(package! competitive-programming-snippets
+  :recipe (:local-repo "repos/competitive-programming-snippets"
+           :files (:defaults "snippets")))
 (package! gitignore-snippets
   :recipe (:local-repo "repos/gitignore-snippets"
            :files (:defaults "snippets")))
