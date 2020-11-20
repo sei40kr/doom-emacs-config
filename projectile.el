@@ -1,4 +1,4 @@
-;;; $DOOMDIR/projects.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/projectile.el -*- lexical-binding: t; -*-
 
 (setq magit-repository-directories '(("~/.dotfiles" . 0)
                                      ("~/.emacs.d" . 0)
@@ -7,6 +7,7 @@
 
 (defadvice! +projectile--add-magit-repos-as-known-projects-a (&rest _)
   :override #'projectile-load-known-projects
+  :after #'magit-clone
   (require 'magit-repos)
   (setq projectile-known-projects
         (mapcar #'file-name-as-directory

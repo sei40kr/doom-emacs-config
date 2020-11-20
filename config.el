@@ -64,7 +64,7 @@
 ;;
 ;; core
 
-(load! "projects")
+(load! "projectile")
 
 
 ;;
