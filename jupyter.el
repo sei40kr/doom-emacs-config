@@ -5,6 +5,7 @@
   (when-let ((info (org-babel-get-src-block-info t))
              ((string-prefix-p "jupyter-" (car info))))
     (jupyter-org-execute-and-next-block)
+    (forward-line)
     t))
 
 (setq-hook! 'jupyter-org-interaction-mode-hook
