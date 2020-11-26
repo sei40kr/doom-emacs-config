@@ -6,3 +6,6 @@
              ((string-prefix-p "jupyter-" (car info))))
     (jupyter-org-execute-and-next-block)
     t))
+
+(setq-hook! 'jupyter-org-interaction-mode-hook
+  company-idle-delay 0.2)
