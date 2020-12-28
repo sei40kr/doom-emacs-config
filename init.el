@@ -95,7 +95,6 @@
        (lookup               ; helps you navigate your code and documentation
         +docsets)            ; ...or in Dash docsets locally
        lsp
-       (:if IS-MAC macos)    ; MacOS-specific commands
        (magit +forge)        ; a git porcelain for Emacs
        make                  ; run make tasks from Emacs
        ;;pass                ; password manager for nerds
@@ -108,6 +107,7 @@
        ;;upload              ; map local to remote projects via ssh/ftp
 
        :os
+       (:if IS-MAC macos)    ; improve compatibility with macOS
        tty                   ; improve the terminal Emacs experience
 
        :lang
