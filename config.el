@@ -300,6 +300,13 @@
 
 
 ;;
+;; lang/go
+
+(when (featurep! :lang go)
+  (load! "go"))
+
+
+;;
 ;; lang/haskell
 
 (when (featurep! :lang haskell +lsp)
