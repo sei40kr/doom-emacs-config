@@ -109,7 +109,7 @@
 ;; ui/tabs
 
 (when (featurep! :ui tabs)
-  (load! "+tabs"))
+  (load! "centaur-tabs"))
 
 
 ;;
