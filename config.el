@@ -384,10 +384,8 @@
 ;; lang/markdown
 
 (when (featurep! :lang markdown)
-  (after! markdown-mode
-    (setq markdown-header-scaling t)
-
-    (set-company-backend! '(markdown-mode gfm-mode) '(company-emoji))))
+  (setq markdown-header-scaling nil
+        markdown-enable-wiki-links nil))
 
 
 ;;
