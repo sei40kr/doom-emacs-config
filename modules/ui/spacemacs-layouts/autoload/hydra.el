@@ -4,15 +4,17 @@
   (:pre (+workspace/display)
    :hint nil)
   "
-                                           [workspaces]
-  Go to^^^^^^                   Actions^^^^
-  ╭─────────────────────────────────────────────╯
-     [_0_.._8_]^^     nth       [_c_/_C_]^^ new
-     [_C-0_.._C-8_]^^ nth       [_d_]^^ delete
-     [_<tab>_]^^^^    final     [_R_]^^ rename
-     [_n_/_C-l_]^^    next
-     [_N_/_p_/_C-h_]  previous         ╭─────────────────────
-     [_w_]^^^^        another          │ [_q_] quit"
+                                                      [workspaces]
+  Go to^^^^                   Actions^^
+  ╭────────────────────────────────────────────────────────╯
+     [_0_.._8_]^^     nth       [_c_/_C_] new
+     [_C-0_.._C-8_]^^ nth       [_d_]^^   delete
+     [_<tab>_]^^^^    final     [_l_]^^   load
+     [_n_/_C-l_]^^    next      [_R_]^^   rename
+     [_N_/_p_/_C-h_]  previous  [_s_]^^   save
+     [_e_]^^^^        select    [_<_/_>_] move left/right
+                                            ╭─────────────────────
+                                            │ [_q_] quit"
   ("0" +workspace/switch-to-0)
   ("1" +workspace/switch-to-1)
   ("2" +workspace/switch-to-2)
@@ -35,6 +37,7 @@
   ("RET" nil :exit t)
   ("<tab>" +workspace/switch-to-final)
   ("<return>" nil :exit t)
+  ("e" +workspace/switch-to :exit t)
   ("n" +workspace/switch-right)
   ("C-l" +workspace/switch-right)
   ("N" +workspace/switch-left)
@@ -43,6 +46,9 @@
   ("c" +workspace/new :exit t)
   ("C" +workspace/new)
   ("d" +workspace/delete)
+  ("l" +workspace/load :exit t)
   ("R" +workspace/rename :exit t)
-  ("w" +workspace/switch-to :exit t)
+  ("s" +workspace/save :exit t)
+  ("<" +workspace/swap-left)
+  (">" +workspace/swap-right)
   ("q" nil :exit t))
