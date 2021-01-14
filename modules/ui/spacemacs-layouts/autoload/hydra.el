@@ -1,5 +1,6 @@
-;;; $DOOMDIR/modules/spacemacs/spacemacs-layouts/autoload/hydra.el -*- lexical-binding: t; -*-
+;;; ui/spacemacs-layouts/autoload/hydra.el -*- lexical-binding: t; -*-
 
+;;;###autoload (autoload '+spacemacs-layouts/workspaces/body "ui/spacemacs-layouts/autoload/hydra" t)
 (defhydra +spacemacs-layouts/workspaces
   (:pre (+workspace/display)
    :hint nil)
