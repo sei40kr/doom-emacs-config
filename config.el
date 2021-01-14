@@ -233,7 +233,7 @@
 ;;
 ;; tools/lookup
 
-(setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
+(setq +lookup-open-url-fn #'eww)
 
 
 ;;
