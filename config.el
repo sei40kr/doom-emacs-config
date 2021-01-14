@@ -443,6 +443,12 @@
     fill-column 80))
 
 
+;; lang/terraform
+
+(when (featurep! :lang terraform)
+  (set-docsets! 'terraform-mode "Terraform"))
+
+
 ;;
 ;; lang/web
 
