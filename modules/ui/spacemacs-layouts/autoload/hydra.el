@@ -6,7 +6,7 @@
    :hint nil)
   "
                                                       [workspaces]
-  Go to^^^^                   Actions^^
+     Go to^^^^                Actions^^
   ╭────────────────────────────────────────────────────────╯
      [_0_.._8_]^^     nth       [_c_/_C_] new
      [_C-0_.._C-8_]^^ nth       [_d_]^^   delete

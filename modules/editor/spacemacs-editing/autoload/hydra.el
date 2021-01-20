@@ -14,7 +14,7 @@
   ╭──────────────────────────────────╯
      [_v_]  expand    [_/_] project
      [_V_]  contract  [_b_] buffer
-     [_r_]  reset      ╭────────────────
+     [_r_]  reset      ╭──────────────────────
      ^^                │ [_q_] quit"
   ("v" er/expand-region)
   ("V" er/contract-region)
