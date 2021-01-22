@@ -1,4 +1,4 @@
-;;; $DOOMDIR/go.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/contrib/go.el -*- lexical-binding: t; -*-
 
 (def-project-mode! +web-go-template-mode
   :modes '(web-mode)

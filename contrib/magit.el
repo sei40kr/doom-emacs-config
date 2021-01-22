@@ -1,4 +1,4 @@
-;;; $DOOMDIR/magit.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/contrib/magit.el -*- lexical-binding: t; -*-
 
 (defun +magit--clone-default-directory (url-or-repo)
   (and (string-match "\\([^/:]+\\)/\\(.+\\)$" url-or-repo)

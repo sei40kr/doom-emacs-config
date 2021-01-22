@@ -1,7 +1,7 @@
-;;; $DOOMDIR/centaur-tabs.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/contrib/tabs.el -*- lexical-binding: t; -*-
 
 (after! centaur-tabs
-  (defun +centaur-tabs--buffer-groups-fn ()
+  (defun +tabs--buffer-groups-fn ()
     (cond ((memq major-mode '(help-mode helpful-mode)) '("Help"))
           ((memq major-mode '(magit-blame-mode
                               magit-blob-mode
@@ -20,7 +20,7 @@
 
   (setq centaur-tabs-set-close-button nil
         centaur-tabs-buffer-list-function #'+workspace-buffer-list
-        centaur-tabs-buffer-groups-function #'+centaur-tabs--buffer-groups-fn)
+        centaur-tabs-buffer-groups-function #'+tabs--buffer-groups-fn)
 
   (map! :map centaur-tabs-mode-map
         "M-<left>"  #'centaur-tabs-backward-tab

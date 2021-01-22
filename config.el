@@ -65,7 +65,7 @@
 ;;
 ;; core
 
-(load! "projectile")
+(load! "projectile-magit")
 
 
 ;;
@@ -109,7 +109,7 @@
 ;; ui/tabs
 
 (when (featurep! :ui tabs)
-  (load! "centaur-tabs"))
+  (load! "contrib/tabs"))
 
 
 ;;
@@ -118,7 +118,7 @@
 (when (featurep! :ui treemacs)
   (setq treemacs-collapse-dirs 3)
 
-  (load! "+evil-treemacs")
+  (load! "contrib/evil-treemacs")
 
   ;; Treemacs + Doom Themes
   (after! (treemacs doom-themes)
@@ -144,7 +144,29 @@
 ;; editor/evil
 
 (when (featurep! :editor evil)
-  (load! "+evil"))
+  (setq +evil-want-o/O-to-continue-comments nil)
+
+  ;; retain visual-mode on selection shift
+  (after! evil
+    (evil-set-command-property 'evil-shift-left  :keep-visual t)
+    (evil-set-command-property 'evil-shift-right :keep-visual t))
+
+
+  ;;
+  ;; expand-region
+
+  ;; Expand region with lsp if server is capable
+  (defun +my-evil/expand-region ()
+    "Increase selected region by semantic units."
+    (interactive)
+    (call-interactively
+     (if (and (bound-and-true-p lsp-mode)
+              (lsp-feature? "textDocument/selectionRange"))
+         #'lsp-extend-selection
+       #'er/expand-region)))
+
+  (map! :nv "C-=" #'er/contract-region
+        :nv "C-+" #'+my-evil/expand-region))
 
 
 ;;
@@ -212,7 +234,7 @@
 ;; emacs/vc
 
 (when (featurep! :emacs vc)
-  (load! "magit"))
+  (load! "contrib/magit"))
 
 
 ;;
@@ -303,7 +325,7 @@
 ;; lang/go
 
 (when (featurep! :lang go)
-  (load! "go"))
+  (load! "contrib/go"))
 
 
 ;;
@@ -392,9 +414,9 @@
 ;; lang/org
 
 (when (featurep! :lang org)
-  (load! "+org"))
+  (load! "contrib/org"))
 (when (featurep! :lang org +jupyter)
-  (load! "jupyter"))
+  (load! "contrib/org-jupyter"))
 
 
 ;;
