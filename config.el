@@ -149,24 +149,7 @@
   ;; retain visual-mode on selection shift
   (after! evil
     (evil-set-command-property 'evil-shift-left  :keep-visual t)
-    (evil-set-command-property 'evil-shift-right :keep-visual t))
-
-
-  ;;
-  ;; expand-region
-
-  ;; Expand region with lsp if server is capable
-  (defun +my-evil/expand-region ()
-    "Increase selected region by semantic units."
-    (interactive)
-    (call-interactively
-     (if (and (bound-and-true-p lsp-mode)
-              (lsp-feature? "textDocument/selectionRange"))
-         #'lsp-extend-selection
-       #'er/expand-region)))
-
-  (map! :nv "C-=" #'er/contract-region
-        :nv "C-+" #'+my-evil/expand-region))
+    (evil-set-command-property 'evil-shift-right :keep-visual t)))
 
 
 ;;
