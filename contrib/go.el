@@ -9,7 +9,8 @@
 
 (def-project-mode! +web-hugo-mode
   :modes '(web-mode)
-  :files (or "config.toml" "theme.toml")
+  :files (and (or "config.toml" "theme.toml")
+              (or "content/" "layouts/"))
   :on-enter
   (when (eq major-mode 'web-mode)
     (web-mode-set-engine "hugo")))
