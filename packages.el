@@ -39,6 +39,7 @@
 ;(package! this-package
 ;  :recipe (:host github :repo "username/repo"
 ;           :files ("some-file.el" "src/lisp/*.el")))
+(package! atcoder-problems :recipe (:local-repo "repos/atcoder-problems"))
 (package! atcoder-tools
   :recipe (:local-repo "repos/atcoder-tools"))
 (package! competitive-programming-snippets
@@ -47,6 +48,7 @@
 (package! gitignore-snippets
   :recipe (:local-repo "repos/gitignore-snippets"
            :files (:defaults "snippets")))
+(package! kaggle :recipe (:local-repo "repos/kaggle"))
 (package! license-snippets
   :recipe (:local-repo "repos/license-snippets"
            :files (:defaults "snippets")))

@@ -1,3 +1,6 @@
+[submodule "atcoder-problems"]
+	path = repos/atcoder-problems
+	url = git@github.com:sei40kr/emacs-atcoder-problems.git
 [submodule "atcoder-tools"]
 	path = repos/atcoder-tools
 	url = https://github.com/sei40kr/emacs-atcoder-tools
@@ -7,6 +10,9 @@
 [submodule "gitignore-snippets"]
 	path = repos/gitignore-snippets
 	url = https://github.com/sei40kr/gitignore-snippets
+[submodule "kaggle"]
+	path = repos/kaggle
+	url = git@github.com:sei40kr/emacs-kaggle.git
 [submodule "license-snippets"]
 	path = repos/license-snippets
 	url = https://github.com/sei40kr/license-snippets
