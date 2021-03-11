@@ -378,14 +378,6 @@
 
 
 ;;
-;; lang/kotlin
-
-(when (featurep! :lang kotlin +lsp)
-  (setq lsp-clients-kotlin-server-executable (concat doom-private-dir
-                                                     "etc/lsp/lsp-kotlin/bin/kotlin-language-server")))
-
-
-;;
 ;; lang/markdown
 
 (when (featurep! :lang markdown)
@@ -400,6 +392,12 @@
   (load! "contrib/org"))
 (when (featurep! :lang org +jupyter)
   (load! "contrib/org-jupyter"))
+
+
+;;
+;; lang/plantuml
+
+(setq plantuml-default-exec-mode 'jar)
 
 
 ;;
