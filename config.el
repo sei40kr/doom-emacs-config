@@ -307,8 +307,8 @@
 ;;
 ;; lang/go
 
-(when (featurep! :lang go)
-  (load! "contrib/go"))
+(setq lsp-go-use-placeholders nil)
+(load! "contrib/go-template")
 
 
 ;;
