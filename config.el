@@ -238,7 +238,8 @@
 ;;
 ;; tools/lookup
 
-(setq +lookup-open-url-fn #'eww)
+(when (featurep 'xwidget-internal)
+  (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn))
 
 
 ;;
