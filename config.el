@@ -65,7 +65,7 @@
 ;;
 ;; core
 
-(load! "projectile-magit")
+(load! "contrib/projectile-magit")
 
 
 ;;
