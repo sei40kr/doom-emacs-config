@@ -245,8 +245,8 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (setq lsp-signature-render-documentation nil
-        lsp-ui-sideline-show-diagnostics nil)
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0)
 
   ;; LSP + Doom Themes
   (after! (lsp-ui doom-themes)
