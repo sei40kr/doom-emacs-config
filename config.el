@@ -245,8 +245,9 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0)
+  (setq-hook! 'lsp-mode-hook
+    company-minimum-prefix-length 1
+    company-idle-delay 0)
 
   ;; LSP + Doom Themes
   (after! (lsp-ui doom-themes)
