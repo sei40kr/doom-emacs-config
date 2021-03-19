@@ -351,10 +351,7 @@
                                             "etc/lombok/lombok-1.18.12.jar")))
           lsp-java-vmargs))
 
-  ;;
   ;; Groovy
-  (setq lsp-groovy-server-file (concat doom-private-dir
-                                       "etc/lsp/lsp-groovy/groovy-language-server-all.jar"))
   (add-hook 'groovy-mode-local-vars-hook #'lsp!))
 
 
