@@ -1,5 +1,3 @@
-/doom.d.key
-
-
+/nix-doom-vars.el
 /packages/**/*
 !/packages/.gitkeep

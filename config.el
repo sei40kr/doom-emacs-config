@@ -56,7 +56,6 @@
 
 (setq confirm-nonexistent-file-or-buffer nil
       vc-follow-symlinks t)
-(load! "nix-variables.el" doom-private-dir nil)
 
 (global-auto-revert-mode +1)
 (global-subword-mode +1)
@@ -467,3 +466,6 @@
 
 (after! vimrc-mode
   (add-hook 'vimrc-mode-local-vars-hook #'lsp!))
+
+
+(load! "nix-doom-vars" nil t)
