@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Seong Yong-ju
+# name: {{< katex [display] >}} ... {{< /katex >}}
+# key: katex
+# --
+
+{{< katex${1: display} >}}${1:$(and (not yas-modified-p) "\n")}`yas-selected-text`$0${1:$(and (not yas-modified-p) "\n")}{{< /katex >}}
