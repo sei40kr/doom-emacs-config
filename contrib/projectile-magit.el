@@ -3,7 +3,7 @@
 (setq magit-repository-directories '(("~/.dotfiles" . 0)
                                      ("~/.emacs.d" . 0)
                                      ("~/.doom.d" . 0)
-                                     ("~/projects" . 2)))
+                                     ("~/dev/ws" . 2)))
 
 (defadvice! +projectile-magit--add-magit-repos-as-known-projects-a (&rest _)
   :override #'projectile-load-known-projects
