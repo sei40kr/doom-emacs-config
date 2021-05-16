@@ -59,6 +59,7 @@
 
 (global-auto-revert-mode +1)
 (global-subword-mode +1)
+(when IS-MAC (menu-bar-mode +1))
 
 
 ;;
