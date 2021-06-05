@@ -310,7 +310,6 @@
 ;; lang/go
 
 (setq lsp-go-use-placeholders nil)
-(load! "contrib/go-template")
 
 
 ;;
