@@ -24,7 +24,6 @@
 ;(package! some-package)
 (package! expand-region :pin "0fa7c2d349")
 (package! package-lint :pin "05596996286089acc7693b700c7c31780439e39f")
-(package! vagrant-tramp :pin "f67925928d")
 (package! vimrc-mode :pin "13bc150a87")
 
 ;; To install a package directly from a particular repo, you'll need to specify
@@ -56,16 +55,16 @@
 ;; If you'd like to disable a package included with Doom, for whatever reason,
 ;; you can do so here with the `:disable' property:
 ;(package! builtin-package :disable t)
-(package! evil-markdown :disable t)
 (package! osx-trash :disable t)
-(package! vterm :built-in t)
-(package! zmq :built-in t)
 
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
 ;; from Doom or MELPA/ELPA/Emacsmirror:
 ;(package! builtin-package :recipe (:nonrecursive t))
 ;(package! builtin-package-2 :recipe (:repo "myfork/package"))
+(package! emacsql-sqlite :built-in t)
+(package! vterm :built-in t)
+(package! zmq :built-in t)
 
 ;; Specify a `:branch' to install a package from a particular branch or tag.
 ;; This is required for some packages whose default branch isn't 'master' (which
