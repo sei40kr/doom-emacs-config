@@ -56,6 +56,7 @@
 ;; you can do so here with the `:disable' property:
 ;(package! builtin-package :disable t)
 (package! osx-trash :disable t)
+(package! pangu-spacing :disable t)
 
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
