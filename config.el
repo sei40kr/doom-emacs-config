@@ -117,7 +117,8 @@
 ;; ui/treemacs
 
 (when (featurep! :ui treemacs)
-  (setq treemacs-collapse-dirs 3)
+  (setq treemacs-read-string-input 'from-minibuffer
+        treemacs-collapse-dirs 3)
 
   (load! "contrib/evil-treemacs")
 
