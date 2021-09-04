@@ -86,19 +86,6 @@
 
 
 ;;
-;; ui/doom
-
-(when (featurep! :ui doom)
-  (after! doom-themes
-    (custom-theme-set-faces! 'doom-one
-      `(font-lock-comment-face
-        :foreground ,(doom-color 'comments)
-        :background ,(when doom-one-comment-bg
-                       (doom-lighten (doom-color 'bg) 0.05))
-        :slant italic))))
-
-
-;;
 ;; ui/popup
 
 (when (featurep! :ui popup)
