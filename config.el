@@ -263,14 +263,6 @@
   (when (featurep! :lang ess +lsp)
     (setq-hook! 'ess-r-mode-hook
       flycheck-disabled-checkers '(r-lintr)))
-  (when (featurep! :lang python +lsp)
-    (add-hook! 'python-mode-hook
-               :local
-               (add-to-list 'flycheck-disabled-checkers 'python-pycompile)
-               (when lsp-pyls-plugins-flake8-enabled
-                 (add-to-list 'flycheck-disabled-checkers 'python-flake8))
-               (when lsp-pyls-plugins-pylint-enabled
-                 (add-to-list 'flycheck-disabled-checkers 'python-pylint))))
   (when (featurep! :lang rust +lsp)
     (add-hook! 'rustic-mode-hook
                :local
@@ -398,19 +390,6 @@
 ;; lang/plantuml
 
 (setq plantuml-default-exec-mode 'jar)
-
-
-;;
-;; lang/python
-
-(when (featurep! :lang python +lsp)
-  (add-hook! 'python-mode-local-vars-hook
-    (when (bound-and-true-p lsp-mode)
-      (pushnew! flycheck-disabled-checkers 'python-pycompile)
-      (when lsp-pyls-plugins-flake8-enabled
-        (pushnew! flycheck-disabled-checkers 'python-flake8))
-      (when lsp-pyls-plugins-pylint-enabled
-        (pushnew! flycheck-disabled-checkers 'python-pylint)))))
 
 
 ;;
