@@ -421,7 +421,8 @@
 
 (when (featurep! :lang web)
   (after! emmet-mode
-    (setq emmet-self-closing-tag-style " /")))
+    (setq emmet-self-closing-tag-style " /"
+          emmet-vendor-prefixes-default '())))
 
 
 ;;
