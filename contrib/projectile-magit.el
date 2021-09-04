@@ -8,7 +8,7 @@
 (defadvice! +projectile-magit--add-magit-repos-as-known-projects-a (&rest _)
   :override #'projectile-load-known-projects
   :after #'magit-clone
-  (require 'magit-repos)
+  (require 'magit)
   (setq projectile-known-projects
         (mapcar #'file-name-as-directory
                 (mapcar #'abbreviate-file-name
