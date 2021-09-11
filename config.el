@@ -73,6 +73,8 @@
 ;; completion/company
 
 (when (featurep! :completion company)
+  (setq company-box-doc-enable nil)
+
   (after! company
     (map! :map company-active-map
           "TAB" nil
