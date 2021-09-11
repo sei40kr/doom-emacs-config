@@ -235,6 +235,8 @@
 ;; tools/lsp
 
 (when (featurep! :tools lsp)
+  (setq lsp-ui-doc-show-with-cursor nil)
+
   (setq-hook! 'lsp-mode-hook
     company-minimum-prefix-length 1
     company-idle-delay 0.2)
