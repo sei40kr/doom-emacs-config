@@ -164,6 +164,7 @@
        ;;purescript          ; javascript, but functional
        (python               ; beautiful is better than ugly
         +lsp
+        +pyright
         +poetry)
        ;;qt                  ; the 'cutest' gui framework ever
        ;;racket              ; a DSL for DSLs
