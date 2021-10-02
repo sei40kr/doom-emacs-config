@@ -66,6 +66,7 @@
 ;(package! builtin-package :recipe (:nonrecursive t))
 ;(package! builtin-package-2 :recipe (:repo "myfork/package"))
 (package! emacsql-sqlite :built-in t)
+(package! libgit :built-in t)
 (package! vterm :built-in t)
 (package! zmq :built-in t)
 
