@@ -203,6 +203,16 @@
 
 
 ;;
+;; emacs/dired
+
+(when (featurep! :emacs dired)
+  (setq all-the-icons-dired-monochrome nil))
+(when (featurep! :emacs dired +ranger)
+  (setq ranger-show-hidden 'prefer
+        ranger-preview-file nil))
+
+
+;;
 ;; emacs/vc
 
 (when (featurep! :emacs vc)
