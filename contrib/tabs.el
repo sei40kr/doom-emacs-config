@@ -18,22 +18,15 @@
           ((eq major-mode 'xwidget-webkit-mode) '("Xwidgets"))
           (t '("Other"))))
 
-  (setq centaur-tabs-set-close-button nil
+  (setq centaur-tabs-height 31
+        centaur-tabs-left-edge-margin ""
+        centaur-tabs-right-edge-margin " "
         centaur-tabs-buffer-list-function #'+workspace-buffer-list
         centaur-tabs-buffer-groups-function #'+tabs--buffer-groups-fn)
+  (after! centaur-tabs
+    (setq centaur-tabs-set-bar 'under
+          x-underline-at-descent-line t))
 
   (map! :map centaur-tabs-mode-map
-        "M-<left>"  #'centaur-tabs-backward-tab
-        "M-<right>" #'centaur-tabs-forward-tab)
-
-  (custom-set-faces! '((centaur-tabs-default
-                        centaur-tabs-unselected
-                        centaur-tabs-selected
-                        centaur-tabs-unselected-modified
-                        centaur-tabs-selected-modified
-                        centaur-tabs-close-unselected
-                        centaur-tabs-close-selected
-                        centaur-tabs-close-mouse-face
-                        centaur-tabs-modified-marker-selected
-                        centaur-tabs-modified-marker-unselected)
-                       :inherit variable-pitch)))
+        "M-<left>"  #'+tabs:previous-or-goto
+        "M-<right>" #'+tabs:next-or-goto))
