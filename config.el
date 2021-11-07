@@ -64,12 +64,6 @@
 
 
 ;;
-;; core
-
-(load! "contrib/projectile-magit")
-
-
-;;
 ;; completion/company
 
 (when (featurep! :completion company)

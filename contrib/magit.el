@@ -1,12 +1,6 @@
 ;;; $DOOMDIR/contrib/magit.el -*- lexical-binding: t; -*-
 
-(defun +magit--clone-default-directory-fn (url-or-repo)
-  (and (string-match "\\([^/:]+\\)/\\(.+\\)$" url-or-repo)
-       (format "~/dev/ws/%s/" (match-string 1 url-or-repo))))
-
-(setq magit-clone-default-directory #'+magit--clone-default-directory-fn
-      magit-clone-set-remote\.pushDefault t
-      magit-refresh-status-buffer nil
+(setq magit-clone-set-remote\.pushDefault t
       magit-repolist-columns '(("Name" 25 magit-repolist-column-ident nil)
                                ("Version" 25 magit-repolist-column-version nil)
                                ("Path" 99 magit-repolist-column-path nil))
