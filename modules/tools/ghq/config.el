@@ -2,6 +2,7 @@
 
 (use-package! ghq :defer t)
 
+
 (after! magit
   (require 'ghq)
   (setq ;; magit-repos
@@ -18,12 +19,11 @@
 
 (defun +ghq-magit-clone-default-directory-fn (url)
   (let* ((parts (last (split-string url "/" nil "\\.git\\'") 3))
-         (rel-path (concat
-                    (pcase (length parts)
-                      (1 (format "github.com/%s/" (+ghq--get-user)))
-                      (2 "github.com/")
-                      (_ ""))
-                    (string-join parts "/"))))
+         (rel-path (concat (pcase (length parts)
+                             (1 (format "github.com/%s/" (+ghq--get-user)))
+                             (2 "github.com/")
+                             (_ ""))
+                           (string-join parts "/"))))
     (require 'ghq)
     (format "%s/%s" ghq--root rel-path)))
 
