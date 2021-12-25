@@ -17,16 +17,10 @@
         (delete-dups (append `((,ghq--root . 3)) projectile-project-search-path))))
 
 
-(defun +ghq-magit-clone-default-directory-fn (url)
-  (let* ((parts (last (split-string url "/" nil "\\.git\\'") 3))
-         (rel-path (concat (pcase (length parts)
-                             (1 (format "github.com/%s/" (+ghq--get-user)))
-                             (2 "github.com/")
-                             (_ ""))
-                           (string-join parts "/"))))
-    (require 'ghq)
-    (format "%s/%s" ghq--root rel-path)))
-
-(defun +ghq--get-user ()
-  (require 'magit)
-  (or (magit-get "ghq.user") (magit-get "github.user") user-login-name))
+(defun +ghq-magit-clone-default-directory-fn (repo)
+  (require 'ghq)
+  (when (or (string-match "\\`\\(?:[^@]+@\\)?\\([^:]+\\):/?\\([^/]+\\)" repo)
+            (string-match "\\`[^:]+://\\([^/]+\\)/\\([^/]+\\)" repo))
+    (let* ((host (match-string 1 repo))
+           (user (match-string 2 repo)))
+      (format "%s/%s/%s/" ghq--root host user))))
