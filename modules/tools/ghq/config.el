@@ -29,4 +29,4 @@
 
 (defun +ghq--get-user ()
   (require 'magit)
-  (or (magit-get "ghq.user") user-login-name))
+  (or (magit-get "ghq.user") (magit-get "github.user") user-login-name))
