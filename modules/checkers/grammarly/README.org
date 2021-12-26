@@ -9,7 +9,7 @@
 - [[#prerequisites][Prerequisites]]
 
 * Description
-This modules provides spellchecking powered by [[https://www.grammarly.com][Grammarly]].
+This modules provides spelling and grammer checks powered by [[https://www.grammarly.com][Grammarly]].
 
 ** Module Flags
 This module provides no flags.
