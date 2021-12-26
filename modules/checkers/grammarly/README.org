@@ -1,0 +1,27 @@
+#+TITLE:   checkers/grammarly
+#+DATE:    December 26, 2021
+#+STARTUP: inlineimages
+
+* Table of Contents :TOC_3:noexport:
+- [[#description][Description]]
+  - [[#module-flags][Module Flags]]
+  - [[#plugins][Plugins]]
+- [[#prerequisites][Prerequisites]]
+
+* Description
+This modules provides spellchecking powered by [[https://www.grammarly.com][Grammarly]].
+
+** Module Flags
+This module provides no flags.
+
+** Plugins
++ [[https://github.com/emacs-grammarly/flycheck-grammarly][flycheck-grammarly]]
++ [[https://github.com/emacs-grammarly/lsp-grammarly][lsp-grammarly]]
++ [[https://github.com/emacs-grammarly/keytar][keytar]]
++ [[https://github.com/emacs-grammarly/eglot-grammarly][eglot-grammarly]]
+
+* Prerequisites
+This module requires the following installed on your system and in your ~PATH~:
+
++ [[https://github.com/emacs-grammarly/unofficial-grammarly-language-server][unofficial-grammarly-language-server]] (for LSP)
++ =keytar= (for LSP if you're using =lsp-mode=)
