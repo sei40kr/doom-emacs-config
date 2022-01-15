@@ -70,6 +70,8 @@
 (package! vterm :built-in t)
 (package! zmq :built-in t)
 
+(package! doom-themes :pin "56e8a93b2dd8f2c10a693f36c3317833211201f2")
+
 ;; Specify a `:branch' to install a package from a particular branch or tag.
 ;; This is required for some packages whose default branch isn't 'master' (which
 ;; our package manager can't deal with; see raxod502/straight.el#279)
