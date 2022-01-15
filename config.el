@@ -234,10 +234,7 @@
 ;;
 ;; tools/magit
 
-(setq magit-clone-set-remote\.pushDefault t
-      magit-repolist-columns '(("Name" 25 magit-repolist-column-ident nil)
-                               ("Version" 25 magit-repolist-column-version nil)
-                               ("Path" 99 magit-repolist-column-path nil)))
+(setq magit-clone-set-remote\.pushDefault t)
 
 ;; Performance tuning
 (setq magit-refresh-status-buffer nil
