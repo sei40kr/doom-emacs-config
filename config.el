@@ -82,8 +82,11 @@
 ;;
 ;; ui/tabs
 
-(when (featurep! :ui tabs)
-  (load! "contrib/tabs"))
+(setq centaur-tabs-set-close-button nil
+      centaur-tabs-buffer-list-function #'+workspace-buffer-list)
+
+(map! :n "]b" #'+tabs:next-or-goto
+      :n "[b" #'+tabs:previous-or-goto)
 
 
 ;;
