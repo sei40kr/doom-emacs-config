@@ -166,12 +166,7 @@
 ;; editor/format
 
 (when (featurep! :editor format)
-  (setq +format-on-save-enabled-modes '(c-mode
-                                        c++-mode
-                                        go-mode
-                                        haskell-mode
-                                        nix-mode
-                                        rustic-mode)
+  (setq +format-on-save-enabled-modes nil
         +format-preserve-indentation nil)
   (setq-hook! '(haskell-mode
                 js2-mode-hook rjsx-mode-hook
