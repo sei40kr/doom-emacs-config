@@ -56,6 +56,7 @@
 ;; they are implemented.
 
 (setq confirm-nonexistent-file-or-buffer nil
+      inhibit-default-init nil
       vc-follow-symlinks t)
 
 (global-auto-revert-mode +1)
