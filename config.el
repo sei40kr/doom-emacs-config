@@ -104,15 +104,19 @@
 ;;
 ;; ui/workspaces
 
-(when (featurep! :ui workspaces)
-  (setq +workspaces-switch-project-function #'(lambda (project-dir)
-                                                (switch-to-buffer (doom-fallback-buffer))
-                                                (setq default-directory project-dir))
-        +workspaces-on-switch-project-behavior t)
+(setq +workspaces-on-switch-project-behavior t
+      persp-kill-foreign-buffer-behaviour 'kill
+      persp-remove-buffers-from-nil-persp-behaviour nil
+      projectile-project-root-files '()
+      projectile-project-root-files-top-down-recurring '()
+      projectile-project-root-files-bottom-up '(".git"))
 
-  (after! persp-mode
-    (setq persp-kill-foreign-buffer-behaviour 'kill
-          persp-remove-buffers-from-nil-persp-behaviour nil)))
+(defadvice! +ivy--projectile-find-file-a (&optional arg dwim)
+  :before-until #'counsel-projectile-find-file
+  (when (counsel-locate-git-root)
+    (let ((this-command #'counsel-find-file))
+      (call-interactively #'counsel-git))
+    t))
 
 
 ;;
