@@ -247,20 +247,7 @@
   ;; LSP + Doom Themes
   (after! (lsp-ui doom-themes)
     (setq lsp-ui-imenu-colors `(,(doom-color 'dark-blue)
-                                ,(doom-color 'cyan))))
-
-  (when (featurep! :lang go +lsp)
-    (setq-hook! 'go-mode-hook
-      flycheck-disabled-checkers '(go-build)))
-  (when (featurep! :lang ess +lsp)
-    (setq-hook! 'ess-r-mode-hook
-      flycheck-disabled-checkers '(r-lintr)))
-  (when (featurep! :lang rust +lsp)
-    (add-hook! 'rustic-mode-hook
-               :local
-               (add-to-list 'flycheck-disabled-checkers 'rust-cargo)
-               (when (string-equal lsp-rust-clippy-preference "on")
-                 (add-to-list 'flycheck-disabled-checkers 'rust-clippy)))))
+                                ,(doom-color 'cyan)))))
 
 
 
@@ -296,14 +283,6 @@
 ;; lang/go
 
 (setq lsp-go-use-placeholders nil)
-
-
-;;
-;; lang/haskell
-
-(when (featurep! :lang haskell +lsp)
-  (after! flycheck
-    (pushnew! flycheck-disabled-checkers 'haskell-ghc 'haskell-stack-ghc)))
 
 
 ;;
@@ -345,10 +324,6 @@
 ;; lang/javascript
 
 (when (featurep! :lang javascript)
-  ;; Disable legacy checkers
-  (after! flycheck
-    (pushnew! flycheck-disabled-checkers 'javascript-jshint 'javascript-standard))
-
   ;; Prefer eslint_d to ESLint
   ;; See https://github.com/mantoni/eslint_d.js
   (add-hook! '(js2-mode-hook
