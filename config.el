@@ -206,13 +206,6 @@
 
 
 ;;
-;; emacs/vc
-
-(when (featurep! :emacs vc)
-  (load! "contrib/magit"))
-
-
-;;
 ;; tools/docker
 
 (when (featurep! :tools docker)
@@ -250,9 +243,28 @@
                                 ,(doom-color 'cyan)))))
 
 
-
 ;;
 ;; tools/magit
+
+(setq magit-clone-set-remote\.pushDefault t
+      magit-repolist-columns '(("Name" 25 magit-repolist-column-ident nil)
+                               ("Version" 25 magit-repolist-column-version nil)
+                               ("Path" 99 magit-repolist-column-path nil)))
+
+;; Performance tuning
+(setq magit-refresh-status-buffer nil
+      ;; Diff Performance
+      magit-diff-highlight-indentation nil
+      magit-diff-highlight-trailing nil
+      magit-diff-paint-whitespace nil
+      magit-diff-highlight-hunk-body nil
+      magit-diff-refine-hunk nil
+      magit-revision-insert-related-refs nil)
+(after! magit
+  ;; Refs Buffer Perfomance
+  (remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
+  ;; Committing Performance
+  (remove-hook 'server-switch-hook 'magit-commit-diff))
 
 (when (featurep! :tools magit)
   (after! transient
