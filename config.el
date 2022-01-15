@@ -18,13 +18,6 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(if (eq system-type 'darwin)
-    (setq doom-font (font-spec :family "Operator Mono Book" :size 17.0)
-          doom-variable-pitch-font (font-spec :family "ヒラギノ角ゴシック W3" :size 15.5))
-  (setq doom-font (font-spec :family "monospace" :size 13.0)
-        doom-variable-pitch-font (font-spec :family "sans-serif" :size 12.0)
-        doom-unicode-font (font-spec :family "Noto Sans CJK JP")))
-(add-to-list 'face-font-rescale-alist (cons doom-unicode-font 1.2))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
