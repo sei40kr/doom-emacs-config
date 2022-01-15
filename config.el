@@ -432,6 +432,3 @@
 
 (after! vimrc-mode
   (add-hook 'vimrc-mode-local-vars-hook #'lsp!))
-
-
-(load! "nix-doom-vars" nil t)
