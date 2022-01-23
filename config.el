@@ -338,6 +338,12 @@
 
 
 ;;
+;;; lang/lua
+
+(setq lsp-clients-lua-language-server-command '("lua-language-server" "-E"))
+
+
+;;
 ;; lang/markdown
 
 (when (featurep! :lang markdown)
