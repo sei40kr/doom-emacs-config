@@ -342,6 +342,14 @@
 
 (setq lsp-clients-lua-language-server-command '("lua-language-server" "-E"))
 
+(set-formatter! 'stylua
+  '("stylua"
+    "-s"
+    ("--stdin-filepath" "%s" buffer-file-name)
+    "--"
+    "-")
+  :modes 'lua-mode)
+
 
 ;;
 ;; lang/markdown
