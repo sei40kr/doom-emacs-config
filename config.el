@@ -109,10 +109,11 @@
       persp-remove-buffers-from-nil-persp-behaviour nil
       projectile-project-root-files '()
       projectile-project-root-files-top-down-recurring '()
-      projectile-project-root-files-bottom-up '(".git"))
+      projectile-project-root-files-bottom-up '(".git")
+      counsel-git-cmd "git ls-files -z -co --exclude-standard --full-name")
 
-(defadvice! +ivy--projectile-find-file-a (&optional arg dwim)
-  :before-until #'counsel-projectile-find-file
+(defadvice! +ivy--projectile-find-file-a (&rest _)
+  :before-until #'+ivy/projectile-find-file
   (when (counsel-locate-git-root)
     (let ((this-command #'counsel-find-file))
       (call-interactively #'counsel-git))
