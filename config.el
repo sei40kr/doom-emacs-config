@@ -361,6 +361,13 @@
 
 
 ;;
+;;; lang/nix
+
+;; stolen from lassik/emacs-format-all-the-code@1f9b929
+(set-formatter! 'nixpkgs-fmt "nixpkgs-fmt" :modes 'nix-mode)
+
+
+;;
 ;; lang/org
 
 (when (featurep! :lang org)
