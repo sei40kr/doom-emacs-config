@@ -82,8 +82,9 @@
 (setq centaur-tabs-set-close-button nil
       centaur-tabs-buffer-list-function #'+workspace-buffer-list)
 
-(map! :n "]b" #'+tabs:next-or-goto
-      :n "[b" #'+tabs:previous-or-goto)
+(map! :map centaur-tabs-mode-map
+      "M-<left>"  #'+tabs:previous-or-goto
+      "M-<right>" #'+tabs:next-or-goto)
 
 
 ;;

@@ -56,6 +56,7 @@
 ;; you can do so here with the `:disable' property:
 ;(package! builtin-package :disable t)
 (package! ddskk :disable t)
+(package! drag-stuff :disable t)
 (package! evil-markdown :disable t)
 (package! osx-trash :disable t)
 (package! pangu-spacing :disable t)
