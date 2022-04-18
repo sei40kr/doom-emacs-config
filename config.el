@@ -83,8 +83,10 @@
       centaur-tabs-buffer-list-function #'+workspace-buffer-list)
 
 (map! :map centaur-tabs-mode-map
-      "M-<left>"  #'+tabs:previous-or-goto
-      "M-<right>" #'+tabs:next-or-goto)
+      "M-<left>"    #'+tabs:previous-or-goto
+      "M-<right>"   #'+tabs:next-or-goto
+      "M-S-<left>"  #'centaur-tabs-move-current-tab-to-left
+      "M-S-<right>" #'centaur-tabs-move-current-tab-to-right)
 
 
 ;;
