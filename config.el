@@ -59,10 +59,13 @@
   (setq company-box-doc-enable nil)
 
   (after! company
-    (map! :map company-active-map
-          "TAB" nil
-          [tab] nil
-          [backtab] nil)
+    (map! :g "C-SPC" nil
+          :i "C-SPC" nil
+          :map company-active-map
+          "TAB"     nil
+          [tab]     nil
+          [backtab] nil
+          "C-SPC"   nil)
 
     (when (featurep! :editor evil)
       (add-hook 'evil-normal-state-entry-hook #'company-abort))))
